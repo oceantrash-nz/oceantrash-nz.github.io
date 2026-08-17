@@ -3,349 +3,444 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ocean Conservation Survey</title>
+    <title>Ocean Conservation Survey — ANI Exhibition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Deep Navy Ocean Theme */
         :root {
-            --navy-bg-top: #1c2541;
-            --navy-bg-bottom: #050814;
-            --navy-panel: #11182c;
-            --ocean-blue: #3a506b;
-            --text-color: #ffffff;
-            --accent: #5bc0be;
+            --bg: #fafafa;
+            --surface: #ffffff;
+            --text: #0a0a0a;
+            --muted: #777;
+            --border: #e5e5e5;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            /* Gradient Background */
-            background: linear-gradient(180deg, var(--navy-bg-top) 0%, var(--navy-bg-bottom) 100%);
-            color: var(--text-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
+            padding: 56px 24px 48px;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- Side Decorations: Waves and Bubbles --- */
-        .wave-sidebar {
+        body::before {
+            content: "";
             position: fixed;
-            top: 0;
-            bottom: 0;
-            width: 120px;
-            /* SVG Vertical Wave Pattern */
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 100' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C25,25 25,25 0,50 C-25,75 -25,75 0,100 L50,100 L50,0 Z' fill='rgba(91,192,190,0.05)'/%3E%3C/svg%3E");
-            background-size: 100% 200px;
-            z-index: -2;
-            pointer-events: none;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--text);
+            z-index: 10;
         }
 
-        .wave-sidebar.left {
-            left: 0;
-        }
+        .page { width: 100%; max-width: 640px; }
 
-        .wave-sidebar.right {
-            right: 0;
-            transform: scaleX(-1);
-        }
+        /* ===== Header ===== */
+        header { text-align: center; margin-bottom: 48px; }
 
-        /* Animated Bubbles */
-        .bubble {
-            position: fixed;
-            background: rgba(91, 192, 190, 0.2);
-            border-radius: 50%;
-            bottom: -50px;
-            animation: float infinite ease-in;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            20% { opacity: 0.8; }
-            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
-        }
-
-        /* Creating bubbles with different sizes, speeds, and positions */
-        .b1 { left: 5%; width: 20px; height: 20px; animation-duration: 8s; animation-delay: 0s; }
-        .b2 { left: 10%; width: 40px; height: 40px; animation-duration: 12s; animation-delay: 2s; }
-        .b3 { left: 8%; width: 15px; height: 15px; animation-duration: 6s; animation-delay: 4s; }
-        .b4 { right: 5%; width: 25px; height: 25px; animation-duration: 9s; animation-delay: 1s; }
-        .b5 { right: 12%; width: 35px; height: 35px; animation-duration: 14s; animation-delay: 3s; }
-        .b6 { right: 8%; width: 10px; height: 10px; animation-duration: 5s; animation-delay: 5s; }
-        /* ------------------------------------------- */
-
-        /* Typography */
-        h1 {
-            font-size: 3rem;
-            margin-top: 40px;
-            margin-bottom: 10px;
-            text-align: center;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
-            z-index: 1;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-top: 0;
-            margin-bottom: 40px;
-            text-align: center;
-            color: var(--accent);
-            z-index: 1;
-        }
-
-        /* Sliding Window Containers */
-        .survey-window {
-            width: 100%;
-            max-width: 600px;
-            background-color: var(--navy-panel);
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-            border: 1px solid rgba(91, 192, 190, 0.2);
-            overflow: hidden; /* Clips the sliding content */
-            z-index: 1;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .survey-slider {
-            display: flex;
-            width: 200%; /* Holds two 100% width panels */
-            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth tween animation */
-        }
-
-        .survey-panel {
-            width: 50%; /* Takes up exactly half of the 200% width, making it 100% of the visible window */
-            padding: 40px;
-            box-sizing: border-box;
-        }
-
-        .intro-text {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            text-align: center;
-            color: #e0e0e0;
-            margin-bottom: 35px;
-        }
-
-        /* Form Elements */
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        label {
+        .drop-icon {
+            width: 38px; height: 38px;
+            margin: 0 auto 20px;
+            color: var(--text);
             display: block;
-            margin-bottom: 12px;
-            font-size: 1.1rem;
-            color: #e0e0e0;
         }
 
-        .radio-group {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 15px;
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
         }
 
-        .radio-group label {
+        h1 {
+            font-size: clamp(2.4rem, 6vw, 3.4rem);
+            font-weight: 600;
+            letter-spacing: -.03em;
+            line-height: 1.06;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--muted);
+            max-width: 460px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .wave-divider {
+            display: block;
+            width: 200px;
+            margin: 36px auto 0;
+            color: var(--text);
+            opacity: .8;
+        }
+
+        /* ===== Card ===== */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .panel-stack { position: relative; }
+
+        .panel {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            padding: 48px;
+            transition: transform .55s cubic-bezier(.22, 1, .36, 1), opacity .45s ease;
+        }
+
+        /* Confirm panel */
+        .panel.confirm { z-index: 2; transform: translateX(0); opacity: 1; }
+        .panel.confirm.exit { transform: translateX(-100%); opacity: 0; pointer-events: none; }
+
+        /* Survey panel */
+        .panel.survey { z-index: 1; transform: translateX(100%); opacity: 0; pointer-events: none; }
+        .panel.survey.enter { transform: translateX(0); opacity: 1; pointer-events: auto; }
+
+        /* Thank-you panel */
+        .panel.thanks { position: static; display: none; text-align: center; }
+
+        .hidden { display: none !important; }
+
+        /* ===== Confirm content ===== */
+        .confirm-inner { text-align: center; }
+
+        .lock-icon {
+            width: 34px; height: 34px;
+            margin: 0 auto 20px;
+            color: var(--text);
+            display: block;
+        }
+
+        .confirm-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 16px; }
+
+        .confirm-text {
+            font-size: .95rem;
+            line-height: 1.7;
+            color: var(--muted);
+            max-width: 400px;
+            margin: 0 auto 32px;
+        }
+
+        .confirm-note {
+            font-size: 11px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 18px;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-block;
+            padding: 15px 32px;
+            background: var(--text);
+            color: #fff;
+            border: 1px solid var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: .03em;
+            cursor: pointer;
+            transition: background .2s ease, transform .1s ease;
+        }
+        .btn:hover { background: #2a2a2a; }
+        .btn:active { transform: translateY(1px); }
+        .btn:disabled { opacity: .5; cursor: not-allowed; }
+        .btn-block { width: 100%; }
+
+        /* ===== Questions ===== */
+        .question { padding: 28px 0; border-bottom: 1px solid var(--border); }
+        .question:first-of-type { padding-top: 0; }
+        .question:last-of-type { border-bottom: none; padding-bottom: 0; }
+
+        .q-label { font-size: 15px; font-weight: 600; margin-bottom: 18px; line-height: 1.5; }
+
+        .q-num {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .12em;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            padding: 2px 7px;
+            margin-right: 10px;
+        }
+
+        /* Radio pills */
+        .options { display: flex; gap: 12px; }
+        .options input { position: absolute; opacity: 0; pointer-events: none; }
+        .options label {
+            flex: 1;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
+            padding: 14px 20px;
+            border: 1px solid var(--border);
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
-            font-size: 1.1rem;
+            transition: all .2s ease;
+            user-select: none;
         }
+        .options label:hover { border-color: var(--text); }
+        .options input:checked + label { background: var(--text); color: #fff; border-color: var(--text); }
+        .options input:focus-visible + label { outline: 2px solid var(--text); outline-offset: 2px; }
 
-        .radio-group input[type="radio"] {
-            margin-right: 10px;
-            width: 18px;
-            height: 18px;
-            accent-color: var(--accent);
-        }
-
+        /* Textarea */
         textarea {
             width: 100%;
-            padding: 15px;
-            background-color: rgba(10, 17, 40, 0.8);
-            border: 1px solid var(--ocean-blue);
-            color: var(--text-color);
-            border-radius: 8px;
-            box-sizing: border-box;
+            min-height: 110px;
+            padding: 14px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 0;
+            color: var(--text);
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 14px;
+            line-height: 1.6;
             resize: vertical;
-            min-height: 120px;
-            transition: border-color 0.3s;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+        textarea::placeholder { color: #aaa; }
+        textarea:focus { outline: none; border-color: var(--text); box-shadow: 0 0 0 3px rgba(10, 10, 10, .06); }
+
+        .submit-row { margin-top: 32px; }
+
+        /* Reveal animation */
+        .reveal { animation: fadeUp .4s ease both; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: none; }
         }
 
-        textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 8px rgba(91, 192, 190, 0.3);
-        }
+        /* ===== Thank-you ===== */
+        .check-icon { width: 40px; height: 40px; margin: 0 auto 20px; color: var(--text); display: block; }
+        .thanks-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 12px; }
+        .thanks-text { font-size: .95rem; line-height: 1.7; color: var(--muted); max-width: 380px; margin: 0 auto; }
 
-        /* Buttons */
-        button {
-            background-color: var(--accent);
-            color: var(--navy-bg-bottom);
-            border: none;
-            padding: 16px 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-            transition: background-color 0.3s ease, transform 0.1s ease;
-        }
-
-        button:hover {
-            background-color: #4eb0ae;
-            transform: translateY(-2px);
+        @media (max-width: 560px) {
+            body { padding: 40px 16px 32px; }
+            .panel { padding: 32px 24px; }
+            .options { flex-direction: column; }
+            .options label { padding: 13px 16px; }
         }
     </style>
 </head>
 <body>
+    <main class="page">
+        <header>
+            <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2.5C12 2.5 5 10.5 5 15a7 7 0 0 0 14 0c0-4.5-7-12.5-7-12.5z"/>
+                <path d="M9 14.5a3.5 3.5 0 0 0 3 3.5" stroke-linecap="round"/>
+            </svg>
+            <div class="eyebrow">ANI Exhibition Project</div>
+            <h1>Ocean Conservation</h1>
+            <p class="subtitle">A short anonymous survey about the everyday habits that affect our oceans.</p>
+            <svg class="wave-divider" viewBox="0 0 320 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M0 12 C 40 4, 80 20, 120 12 S 200 4, 240 12 S 300 20, 320 12" stroke-linecap="round"/>
+            </svg>
+        </header>
 
-    <!-- Background Decorations -->
-    <div class="wave-sidebar left"></div>
-    <div class="wave-sidebar right"></div>
-    <div class="bubble b1"></div>
-    <div class="bubble b2"></div>
-    <div class="bubble b3"></div>
-    <div class="bubble b4"></div>
-    <div class="bubble b5"></div>
-    <div class="bubble b6"></div>
+        <div class="card">
+            <div class="panel-stack" id="panel-stack">
 
-    <h1>Ocean Conservation</h1>
-    <h2>Help us understand environmental habits</h2>
+                <!-- Confirmation panel -->
+                <div class="panel confirm" id="confirm-panel">
+                    <div class="confirm-inner">
+                        <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="5" y="11" width="14" height="9" rx="1"/>
+                            <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+                            <circle cx="12" cy="15.5" r="1.2" fill="currentColor" stroke="none"/>
+                        </svg>
+                        <p class="confirm-title">Before you begin</p>
+                        <p class="confirm-text">This data will be sent to Students at Auckland Normal Intermediate, and the data being sent will be anonymous.</p>
+                        <button class="btn" type="button" id="understand-btn">Yes, I understand</button>
+                        <p class="confirm-note">Anonymous · No personal data collected</p>
+                    </div>
+                </div>
 
-    <!-- Sliding Window containing both panels -->
-    <div class="survey-window">
-        <div class="survey-slider" id="slider">
-            
-            <!-- Panel 1: Confirmation/Intro -->
-            <div class="survey-panel" id="panel-intro">
-                <p class="intro-text">
-                    This data will be sent to Students at Auckland Normal Intermediate, and the data being sent will be anonymous.
-                </p>
-                <button type="button" id="understand-btn">Yes, I understand</button>
-            </div>
-
-            <!-- Panel 2: Actual Survey -->
-            <div class="survey-panel" id="panel-survey">
-                <form id="survey-form">
-                    <!-- Question 1 -->
-                    <div class="form-group">
-                        <label>Do you litter?</label>
-                        <div class="radio-group">
-                            <label>
-                                <input type="radio" name="litter" value="yes" id="litter-yes" required> Yes
-                            </label>
-                            <label>
-                                <input type="radio" name="litter" value="no" id="litter-no"> No
-                            </label>
+                <!-- Survey panel -->
+                <div class="panel survey" id="survey-panel">
+                    <form id="survey-form">
+                        <!-- Q1 -->
+                        <div class="question">
+                            <p class="q-label"><span class="q-num">Q1</span>Do you litter in the ocean?</p>
+                            <div class="options">
+                                <input type="radio" name="litter" value="yes" id="litter-yes" required>
+                                <label for="litter-yes">Yes</label>
+                                <input type="radio" name="litter" value="no" id="litter-no">
+                                <label for="litter-no">No</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Question 2 (Dynamic, Hidden initially) -->
-                    <div class="form-group" id="q2-container" style="display: none;">
-                        <label id="q2-label">Why do you do it?</label>
-                        <textarea id="reason" placeholder="Enter your response here..." required></textarea>
-                    </div>
+                        <!-- Q2 (conditional) -->
+                        <div class="question hidden" id="q2-container">
+                            <p class="q-label"><span class="q-num">Q2</span><span id="q2-text">Why do you do it?</span></p>
+                            <textarea id="reason" placeholder="Share your thoughts..." required></textarea>
+                        </div>
 
-                    <!-- Question 3 (Hidden initially) -->
-                    <div class="form-group" id="q3-container" style="display: none;">
-                        <label>How could we prevent it from happening?</label>
-                        <textarea id="prevention" placeholder="Enter your response here..." required></textarea>
-                    </div>
+                        <!-- Q3 -->
+                        <div class="question hidden" id="q3-container">
+                            <p class="q-label"><span class="q-num">Q3</span>How could we prevent it from happening?</p>
+                            <textarea id="prevention" placeholder="Share your ideas..." required></textarea>
+                        </div>
 
-                    <!-- Submit Button (Hidden initially) -->
-                    <button type="submit" id="submit-btn" style="display: none;">Submit</button>
-                </form>
+                        <!-- Submit -->
+                        <div class="submit-row hidden" id="submit-row">
+                            <button class="btn btn-block" type="submit" id="submit-btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Thank-you panel -->
+                <div class="panel thanks" id="thanks-panel">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M8 12.5l2.5 2.5L16 9.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <p class="thanks-title">Thank you</p>
+                    <p class="thanks-text" id="thanks-text"></p>
+                </div>
+
             </div>
-
         </div>
-    </div>
+    </main>
 
     <script>
         // ==========================================
         // CONFIGURATION
         // Paste your Discord Webhook URL inside the quotes below:
-        const DISCORD_WEBHOOK_URL = "YOUR_WEBHOOK_URL_HERE"; 
+        const DISCORD_WEBHOOK_URL = "YOUR_WEBHOOK_URL_HERE";
+        const STORAGE_KEY = "ani_ocean_survey_completed";
         // ==========================================
 
-        // DOM Elements
-        const understandBtn = document.getElementById('understand-btn');
-        const slider = document.getElementById('slider');
+        const panelStack     = document.getElementById('panel-stack');
+        const confirmPanel   = document.getElementById('confirm-panel');
+        const surveyPanel    = document.getElementById('survey-panel');
+        const thanksPanel    = document.getElementById('thanks-panel');
+        const thanksText     = document.getElementById('thanks-text');
+        const understandBtn  = document.getElementById('understand-btn');
 
-        const litterYes = document.getElementById('litter-yes');
-        const litterNo = document.getElementById('litter-no');
-        const q2Container = document.getElementById('q2-container');
-        const q3Container = document.getElementById('q3-container');
-        const submitBtn = document.getElementById('submit-btn');
-        const q2Label = document.getElementById('q2-label');
-        const surveyForm = document.getElementById('survey-form');
+        const litterYes      = document.getElementById('litter-yes');
+        const litterNo       = document.getElementById('litter-no');
+        const q2Container    = document.getElementById('q2-container');
+        const q3Container    = document.getElementById('q3-container');
+        const q2Text         = document.getElementById('q2-text');
+        const submitRow      = document.getElementById('submit-row');
+        const submitBtn      = document.getElementById('submit-btn');
+        const surveyForm     = document.getElementById('survey-form');
 
-        // Transition logic (Tween to the left)
-        understandBtn.addEventListener('click', () => {
-            // Translating by -50% shifts the flex container to the second panel
-            slider.style.transform = 'translateX(-50%)';
-        });
+        let state = 'confirm'; // 'confirm' | 'survey' | 'thanks'
 
-        // Dynamic Question Logic
-        function updateFormState() {
-            // Unhide the rest of the form
-            q2Container.style.display = 'block';
-            q3Container.style.display = 'block';
-            submitBtn.style.display = 'block';
-
-            // Change Q2 text based on selection
-            if (litterYes.checked) {
-                q2Label.textContent = "Why do you do it?";
-            } else if (litterNo.checked) {
-                q2Label.textContent = "Why do you think people do it?";
+        // Keep the stack height matched to the active panel
+        function fitStack(el) {
+            if (el && el.offsetParent !== null) {
+                panelStack.style.height = el.offsetHeight + 'px';
             }
         }
 
-        // Listen for clicks on the first question
+        function showThanks(message) {
+            state = 'thanks';
+            confirmPanel.classList.add('hidden');
+            surveyPanel.classList.add('hidden');
+            thanksText.textContent = message;
+            thanksPanel.style.display = 'block';
+            panelStack.style.height = 'auto';
+        }
+
+        // Anti-abuse: check localStorage on load
+        if (localStorage.getItem(STORAGE_KEY)) {
+            showThanks("You have already completed this survey. Thank you!");
+        } else {
+            fitStack(confirmPanel);
+        }
+
+        // Transition: confirm slides left, survey slides in from the right
+        understandBtn.addEventListener('click', () => {
+            if (state !== 'confirm') return;
+            state = 'survey';
+            confirmPanel.classList.add('exit');
+            surveyPanel.classList.add('enter');
+            setTimeout(() => {
+                confirmPanel.classList.add('hidden');
+                fitStack(surveyPanel);
+            }, 600);
+        });
+
+        // Dynamic questions
+        function updateFormState() {
+            [q2Container, q3Container, submitRow].forEach(el => {
+                el.classList.remove('hidden');
+                el.classList.add('reveal');
+            });
+            q2Text.textContent = litterYes.checked
+                ? "Why do you do it?"
+                : "Why do you think people do it?";
+            fitStack(surveyPanel);
+        }
+
         litterYes.addEventListener('change', updateFormState);
         litterNo.addEventListener('change', updateFormState);
 
-        // Form Submission Logic
-        surveyForm.addEventListener('submit', async function(e) {
-            e.preventDefault(); 
+        // Keep height in sync when textareas grow/shrink
+        surveyForm.addEventListener('input', () => {
+            if (state === 'survey') fitStack(surveyPanel);
+        });
+        window.addEventListener('resize', () => {
+            if (state === 'confirm') fitStack(confirmPanel);
+            else if (state === 'survey') fitStack(surveyPanel);
+        });
 
-            if (DISCORD_WEBHOOK_URL === "YOUR_WEBHOOK_URL_HERE" || !DISCORD_WEBHOOK_URL) {
+        // Submission
+        surveyForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            if (state !== 'survey') return;
+
+            // Belt-and-suspenders anti-abuse check
+            if (localStorage.getItem(STORAGE_KEY)) {
+                showThanks("You have already completed this survey. Thank you!");
+                return;
+            }
+
+            if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL === "YOUR_WEBHOOK_URL_HERE") {
                 alert("Developer Error: The Discord Webhook URL has not been set up in the HTML file yet.");
                 return;
             }
 
-            // Gather Data
-            const isLittering = litterYes.checked ? "Yes" : "No";
-            const q2Question = q2Label.textContent;
-            const reasonResponse = document.getElementById('reason').value;
-            const preventionResponse = document.getElementById('prevention').value;
+            const isLittering     = litterYes.checked ? "Yes" : "No";
+            const reasonQuestion  = litterYes.checked ? "Why do you do it?" : "Why do you think people do it?";
+            const reasonResponse  = document.getElementById('reason').value;
+            const preventionResp  = document.getElementById('prevention').value;
 
-            // Construct Discord Embedded Message Payload
             const payload = {
-                username: "Anonymous Survey Bot",
+                username: "ANI Ocean Survey",
                 embeds: [{
-                    title: "📝 New Survey Submission",
-                    color: 2386347, 
+                    title: "🌊 New Ocean Survey Submission",
+                    color: 0x0a0a0a,
                     fields: [
-                        { name: "Do you litter?", value: isLittering, inline: false },
-                        { name: q2Question, value: reasonResponse, inline: false },
-                        { name: "How could we prevent it from happening?", value: preventionResponse, inline: false }
+                        { name: "Do you litter in the ocean?", value: isLittering, inline: false },
+                        { name: reasonQuestion, value: reasonResponse || "—", inline: false },
+                        { name: "How could we prevent it from happening?", value: preventionResp || "—", inline: false }
                     ],
-                    footer: { text: "Sent anonymously via Ocean Conservation Survey" }
+                    footer: { text: "Sent anonymously · ANI Exhibition Project" }
                 }]
             };
 
-            // Send to Discord
             try {
-                // Change button state to show it's working
                 submitBtn.textContent = "Sending...";
                 submitBtn.disabled = true;
 
@@ -356,15 +451,8 @@
                 });
 
                 if (response.ok) {
-                    alert("Thank you! Your survey has been submitted anonymously.");
-                    surveyForm.reset();
-                    // Re-hide elements after submission
-                    q2Container.style.display = 'none';
-                    q3Container.style.display = 'none';
-                    submitBtn.style.display = 'none';
-                    
-                    // Optionally, slide back to the intro panel after submission:
-                    // slider.style.transform = 'translateX(0)';
+                    localStorage.setItem(STORAGE_KEY, "true");
+                    showThanks("Thank you! Your response has been recorded anonymously.");
                 } else {
                     alert("Submission failed. Make sure the Discord Webhook URL is correct.");
                 }
@@ -372,7 +460,6 @@
                 alert("An error occurred while sending the data.");
                 console.error(error);
             } finally {
-                // Reset button state
                 submitBtn.textContent = "Submit";
                 submitBtn.disabled = false;
             }
