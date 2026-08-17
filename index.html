@@ -98,17 +98,38 @@
             z-index: 1;
         }
 
-        /* Containers */
-        .container {
-            background-color: var(--navy-panel);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        /* Sliding Window Containers */
+        .survey-window {
             width: 100%;
             max-width: 600px;
-            margin-bottom: 40px;
-            z-index: 1;
+            background-color: var(--navy-panel);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
             border: 1px solid rgba(91, 192, 190, 0.2);
+            overflow: hidden; /* Clips the sliding content */
+            z-index: 1;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .survey-slider {
+            display: flex;
+            width: 200%; /* Holds two 100% width panels */
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth tween animation */
+        }
+
+        .survey-panel {
+            width: 50%; /* Takes up exactly half of the 200% width, making it 100% of the visible window */
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            text-align: center;
+            color: #e0e0e0;
+            margin-bottom: 35px;
         }
 
         /* Form Elements */
@@ -164,7 +185,7 @@
             box-shadow: 0 0 8px rgba(91, 192, 190, 0.3);
         }
 
-        /* Button */
+        /* Buttons */
         button {
             background-color: var(--accent);
             color: var(--navy-bg-bottom);
@@ -200,37 +221,52 @@
     <h1>Ocean Conservation</h1>
     <h2>Help us understand environmental habits</h2>
 
-    <!-- Survey Form -->
-    <div class="container">
-        <form id="survey-form">
-            <!-- Question 1 -->
-            <div class="form-group">
-                <label>Do you litter?</label>
-                <div class="radio-group">
-                    <label>
-                        <input type="radio" name="litter" value="yes" id="litter-yes" required> Yes
-                    </label>
-                    <label>
-                        <input type="radio" name="litter" value="no" id="litter-no"> No
-                    </label>
-                </div>
+    <!-- Sliding Window containing both panels -->
+    <div class="survey-window">
+        <div class="survey-slider" id="slider">
+            
+            <!-- Panel 1: Confirmation/Intro -->
+            <div class="survey-panel" id="panel-intro">
+                <p class="intro-text">
+                    This data will be sent to Students at Auckland Normal Intermediate, and the data being sent will be anonymous.
+                </p>
+                <button type="button" id="understand-btn">Yes, I understand</button>
             </div>
 
-            <!-- Question 2 (Dynamic, Hidden initially) -->
-            <div class="form-group" id="q2-container" style="display: none;">
-                <label id="q2-label">Why do you do it?</label>
-                <textarea id="reason" placeholder="Enter your response here..." required></textarea>
+            <!-- Panel 2: Actual Survey -->
+            <div class="survey-panel" id="panel-survey">
+                <form id="survey-form">
+                    <!-- Question 1 -->
+                    <div class="form-group">
+                        <label>Do you litter?</label>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="litter" value="yes" id="litter-yes" required> Yes
+                            </label>
+                            <label>
+                                <input type="radio" name="litter" value="no" id="litter-no"> No
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 (Dynamic, Hidden initially) -->
+                    <div class="form-group" id="q2-container" style="display: none;">
+                        <label id="q2-label">Why do you do it?</label>
+                        <textarea id="reason" placeholder="Enter your response here..." required></textarea>
+                    </div>
+
+                    <!-- Question 3 (Hidden initially) -->
+                    <div class="form-group" id="q3-container" style="display: none;">
+                        <label>How could we prevent it from happening?</label>
+                        <textarea id="prevention" placeholder="Enter your response here..." required></textarea>
+                    </div>
+
+                    <!-- Submit Button (Hidden initially) -->
+                    <button type="submit" id="submit-btn" style="display: none;">Submit</button>
+                </form>
             </div>
 
-            <!-- Question 3 (Hidden initially) -->
-            <div class="form-group" id="q3-container" style="display: none;">
-                <label>How could we prevent it from happening?</label>
-                <textarea id="prevention" placeholder="Enter your response here..." required></textarea>
-            </div>
-
-            <!-- Submit Button (Hidden initially) -->
-            <button type="submit" id="submit-btn" style="display: none;">Submit Anonymously</button>
-        </form>
+        </div>
     </div>
 
     <script>
@@ -241,6 +277,9 @@
         // ==========================================
 
         // DOM Elements
+        const understandBtn = document.getElementById('understand-btn');
+        const slider = document.getElementById('slider');
+
         const litterYes = document.getElementById('litter-yes');
         const litterNo = document.getElementById('litter-no');
         const q2Container = document.getElementById('q2-container');
@@ -248,6 +287,12 @@
         const submitBtn = document.getElementById('submit-btn');
         const q2Label = document.getElementById('q2-label');
         const surveyForm = document.getElementById('survey-form');
+
+        // Transition logic (Tween to the left)
+        understandBtn.addEventListener('click', () => {
+            // Translating by -50% shifts the flex container to the second panel
+            slider.style.transform = 'translateX(-50%)';
+        });
 
         // Dynamic Question Logic
         function updateFormState() {
@@ -317,6 +362,9 @@
                     q2Container.style.display = 'none';
                     q3Container.style.display = 'none';
                     submitBtn.style.display = 'none';
+                    
+                    // Optionally, slide back to the intro panel after submission:
+                    // slider.style.transform = 'translateX(0)';
                 } else {
                     alert("Submission failed. Make sure the Discord Webhook URL is correct.");
                 }
@@ -325,7 +373,7 @@
                 console.error(error);
             } finally {
                 // Reset button state
-                submitBtn.textContent = "Submit Anonymously";
+                submitBtn.textContent = "Submit";
                 submitBtn.disabled = false;
             }
         });
