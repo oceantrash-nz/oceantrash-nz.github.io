@@ -9,18 +9,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #fafafa;
-            --surface: #ffffff;
-            --text: #0a0a0a;
-            --muted: #777;
-            --border: #e5e5e5;
+            --bg-top: #1e2a4a;
+            --bg-bottom: #0a0f1e;
+            --surface: rgba(19, 28, 51, 0.85);
+            --text: #eaf0fa;
+            --muted: #8b9cc4;
+            --border: rgba(139, 156, 196, 0.18);
+            --accent: #5bc0be;
+            --accent-soft: rgba(91, 192, 190, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg);
+            background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+            background-attachment: fixed;
             color: var(--text);
             min-height: 100vh;
             display: flex;
@@ -35,7 +39,7 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             height: 3px;
-            background: var(--text);
+            background: var(--accent);
             z-index: 10;
         }
 
@@ -47,8 +51,9 @@
         .drop-icon {
             width: 38px; height: 38px;
             margin: 0 auto 20px;
-            color: var(--text);
+            color: var(--accent);
             display: block;
+            filter: drop-shadow(0 0 8px rgba(91, 192, 190, 0.35));
         }
 
         .eyebrow {
@@ -66,6 +71,8 @@
             letter-spacing: -.03em;
             line-height: 1.06;
             margin-bottom: 16px;
+            color: #ffffff;
+            text-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
         }
 
         .subtitle {
@@ -81,14 +88,17 @@
             display: block;
             width: 200px;
             margin: 36px auto 0;
-            color: var(--text);
-            opacity: .8;
+            color: var(--accent);
+            opacity: .7;
         }
 
         /* ===== Card ===== */
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(8px);
             overflow: hidden;
         }
 
@@ -121,8 +131,9 @@
         .lock-icon {
             width: 34px; height: 34px;
             margin: 0 auto 20px;
-            color: var(--text);
+            color: var(--accent);
             display: block;
+            filter: drop-shadow(0 0 8px rgba(91, 192, 190, 0.35));
         }
 
         .confirm-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 16px; }
@@ -147,17 +158,21 @@
         .btn {
             display: inline-block;
             padding: 15px 32px;
-            background: var(--text);
-            color: #fff;
-            border: 1px solid var(--text);
+            background: var(--accent);
+            color: #0a1520;
+            border: 1px solid var(--accent);
             font-family: inherit;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: .03em;
             cursor: pointer;
-            transition: background .2s ease, transform .1s ease;
+            border-radius: 8px;
+            transition: background .2s ease, transform .1s ease, box-shadow .2s ease;
         }
-        .btn:hover { background: #2a2a2a; }
+        .btn:hover {
+            background: #6fd4d2;
+            box-shadow: 0 0 20px rgba(91, 192, 190, 0.35);
+        }
         .btn:active { transform: translateY(1px); }
         .btn:disabled { opacity: .5; cursor: not-allowed; }
         .btn-block { width: 100%; }
@@ -174,8 +189,10 @@
             font-size: 10px;
             font-weight: 600;
             letter-spacing: .12em;
-            color: var(--muted);
-            border: 1px solid var(--border);
+            color: var(--accent);
+            border: 1px solid rgba(91, 192, 190, 0.35);
+            background: var(--accent-soft);
+            border-radius: 4px;
             padding: 2px 7px;
             margin-right: 10px;
         }
@@ -190,24 +207,38 @@
             justify-content: center;
             padding: 14px 20px;
             border: 1px solid var(--border);
+            border-radius: 8px;
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             transition: all .2s ease;
             user-select: none;
+            background: rgba(255, 255, 255, 0.02);
         }
-        .options label:hover { border-color: var(--text); }
-        .options input:checked + label { background: var(--text); color: #fff; border-color: var(--text); }
-        .options input:focus-visible + label { outline: 2px solid var(--text); outline-offset: 2px; }
+        .options label:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .options input:checked + label {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #0a1520;
+            font-weight: 700;
+            box-shadow: 0 0 16px rgba(91, 192, 190, 0.3);
+        }
+        .options input:focus-visible + label {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
 
         /* Textarea */
         textarea {
             width: 100%;
             min-height: 110px;
             padding: 14px 16px;
-            background: transparent;
+            background: rgba(10, 15, 30, 0.6);
             border: 1px solid var(--border);
-            border-radius: 0;
+            border-radius: 8px;
             color: var(--text);
             font-family: inherit;
             font-size: 14px;
@@ -215,8 +246,12 @@
             resize: vertical;
             transition: border-color .2s ease, box-shadow .2s ease;
         }
-        textarea::placeholder { color: #aaa; }
-        textarea:focus { outline: none; border-color: var(--text); box-shadow: 0 0 0 3px rgba(10, 10, 10, .06); }
+        textarea::placeholder { color: #5a6b90; }
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(91, 192, 190, 0.15);
+        }
 
         .submit-row { margin-top: 32px; }
 
@@ -228,7 +263,13 @@
         }
 
         /* ===== Thank-you ===== */
-        .check-icon { width: 40px; height: 40px; margin: 0 auto 20px; color: var(--text); display: block; }
+        .check-icon {
+            width: 40px; height: 40px;
+            margin: 0 auto 20px;
+            color: var(--accent);
+            display: block;
+            filter: drop-shadow(0 0 8px rgba(91, 192, 190, 0.35));
+        }
         .thanks-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 12px; }
         .thanks-text { font-size: .95rem; line-height: 1.7; color: var(--muted); max-width: 380px; margin: 0 auto; }
 
@@ -346,7 +387,6 @@
 
         let state = 'confirm'; // 'confirm' | 'survey' | 'thanks'
 
-        // Keep the stack height matched to the active panel
         function fitStack(el) {
             if (el && el.offsetParent !== null) {
                 panelStack.style.height = el.offsetHeight + 'px';
@@ -410,7 +450,6 @@
             e.preventDefault();
             if (state !== 'survey') return;
 
-            // Belt-and-suspenders anti-abuse check
             if (localStorage.getItem(STORAGE_KEY)) {
                 showThanks("You have already completed this survey. Thank you!");
                 return;
@@ -430,7 +469,7 @@
                 username: "ANI Ocean Survey",
                 embeds: [{
                     title: "🌊 New Ocean Survey Submission",
-                    color: 0x0a0a0a,
+                    color: 0x5bc0be,
                     fields: [
                         { name: "Do you litter in the ocean?", value: isLittering, inline: false },
                         { name: reasonQuestion, value: reasonResponse || "—", inline: false },
