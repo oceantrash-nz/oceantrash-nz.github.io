@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ocean Conservation Survey — ANI Exhibition</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --bg-top: #1e2a4a;
@@ -19,7 +21,11 @@
             --accent-soft: rgba(91, 192, 190, 0.15);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -37,19 +43,29 @@
         body::before {
             content: "";
             position: fixed;
-            top: 0; left: 0; right: 0;
+            top: 0;
+            left: 0;
+            right: 0;
             height: 3px;
             background: var(--accent);
             z-index: 10;
         }
 
-        .page { width: 100%; max-width: 640px; }
+        .page {
+            width: 100%;
+            max-width: 640px;
+        }
 
-        /* ===== Header ===== */
-        header { text-align: center; margin-bottom: 48px; }
+        /* Header */
+
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
 
         .drop-icon {
-            width: 38px; height: 38px;
+            width: 38px;
+            height: 38px;
             margin: 0 auto 20px;
             color: var(--accent);
             display: block;
@@ -92,7 +108,8 @@
             opacity: .7;
         }
 
-        /* ===== Card ===== */
+        /* Card */
+
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -102,41 +119,48 @@
             overflow: hidden;
         }
 
-        .panel-stack { position: relative; }
-
-        .panel {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            padding: 48px;
-            transition: transform .55s cubic-bezier(.22, 1, .36, 1), opacity .45s ease;
+        .panel-stack {
+            position: relative;
         }
 
-        /* Confirm panel */
-        .panel.confirm { z-index: 2; transform: translateX(0); opacity: 1; }
-        .panel.confirm.exit { transform: translateX(-100%); opacity: 0; pointer-events: none; }
+        .panel {
+            width: 100%;
+            padding: 48px;
+        }
 
-        /* Survey panel */
-        .panel.survey { z-index: 1; transform: translateX(100%); opacity: 0; pointer-events: none; }
-        .panel.survey.enter { transform: translateX(0); opacity: 1; pointer-events: auto; }
+        /* Confirmation */
 
-        /* Thank-you panel */
-        .panel.thanks { position: static; display: none; text-align: center; }
+        .confirm-panel {
+            opacity: 1;
+            transform: translateX(0);
+            transition:
+                opacity .35s ease,
+                transform .45s cubic-bezier(.22, 1, .36, 1);
+        }
 
-        .hidden { display: none !important; }
+        .confirm-panel.exit {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
 
-        /* ===== Confirm content ===== */
-        .confirm-inner { text-align: center; }
+        .confirm-inner {
+            text-align: center;
+        }
 
         .lock-icon {
-            width: 34px; height: 34px;
+            width: 34px;
+            height: 34px;
             margin: 0 auto 20px;
             color: var(--accent);
             display: block;
             filter: drop-shadow(0 0 8px rgba(91, 192, 190, 0.35));
         }
 
-        .confirm-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 16px; }
+        .confirm-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
 
         .confirm-text {
             font-size: .95rem;
@@ -154,7 +178,8 @@
             margin-top: 18px;
         }
 
-        /* ===== Buttons ===== */
+        /* Buttons */
+
         .btn {
             display: inline-block;
             padding: 15px 32px;
@@ -167,22 +192,70 @@
             letter-spacing: .03em;
             cursor: pointer;
             border-radius: 8px;
-            transition: background .2s ease, transform .1s ease, box-shadow .2s ease;
+            transition:
+                background .2s ease,
+                transform .1s ease,
+                box-shadow .2s ease;
         }
+
         .btn:hover {
             background: #6fd4d2;
             box-shadow: 0 0 20px rgba(91, 192, 190, 0.35);
         }
-        .btn:active { transform: translateY(1px); }
-        .btn:disabled { opacity: .5; cursor: not-allowed; }
-        .btn-block { width: 100%; }
 
-        /* ===== Questions ===== */
-        .question { padding: 28px 0; border-bottom: 1px solid var(--border); }
-        .question:first-of-type { padding-top: 0; }
-        .question:last-of-type { border-bottom: none; padding-bottom: 0; }
+        .btn:active {
+            transform: translateY(1px);
+        }
 
-        .q-label { font-size: 15px; font-weight: 600; margin-bottom: 18px; line-height: 1.5; }
+        .btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* Survey */
+
+        .survey-panel {
+            display: none;
+        }
+
+        .survey-panel.active {
+            display: block;
+            animation: surveyEnter .5s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        @keyframes surveyEnter {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Questions */
+
+        .question {
+            padding: 28px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question:first-child {
+            padding-top: 0;
+        }
+
+        .q-label {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
 
         .q-num {
             display: inline-block;
@@ -197,312 +270,981 @@
             margin-right: 10px;
         }
 
-        /* Radio pills */
-        .options { display: flex; gap: 12px; }
-        .options input { position: absolute; opacity: 0; pointer-events: none; }
+        /* Yes / No */
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /*
+         * The actual radio is invisible, but still exists.
+         * The label is what the user clicks.
+         */
+
+        .options input[type="radio"] {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
         .options label {
-            flex: 1;
-            display: inline-flex;
+            min-height: 52px;
+            display: flex;
             align-items: center;
             justify-content: center;
+
             padding: 14px 20px;
+
             border: 1px solid var(--border);
             border-radius: 8px;
+
             font-size: 14px;
             font-weight: 500;
+
             cursor: pointer;
-            transition: all .2s ease;
             user-select: none;
+
             background: rgba(255, 255, 255, 0.02);
+
+            transition:
+                background .2s ease,
+                border-color .2s ease,
+                color .2s ease,
+                box-shadow .2s ease,
+                transform .1s ease;
         }
+
         .options label:hover {
             border-color: var(--accent);
             color: var(--accent);
         }
-        .options input:checked + label {
+
+        .options label:active {
+            transform: scale(.98);
+        }
+
+        .options input[type="radio"]:checked + label {
             background: var(--accent);
             border-color: var(--accent);
             color: #0a1520;
             font-weight: 700;
             box-shadow: 0 0 16px rgba(91, 192, 190, 0.3);
         }
-        .options input:focus-visible + label {
+
+        .options input[type="radio"]:focus-visible + label {
             outline: 2px solid var(--accent);
-            outline-offset: 2px;
+            outline-offset: 3px;
         }
 
-        /* Textarea */
+        /* Conditional questions */
+
+        .conditional {
+            display: grid;
+            grid-template-rows: 0fr;
+            opacity: 0;
+            overflow: hidden;
+
+            padding-top: 0;
+            padding-bottom: 0;
+
+            border-bottom: 0;
+
+            transition:
+                grid-template-rows .5s cubic-bezier(.22, 1, .36, 1),
+                opacity .3s ease,
+                padding .5s ease;
+        }
+
+        .conditional-inner {
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .conditional.visible {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            padding-top: 28px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Textareas */
+
         textarea {
             width: 100%;
             min-height: 110px;
             padding: 14px 16px;
+
             background: rgba(10, 15, 30, 0.6);
             border: 1px solid var(--border);
             border-radius: 8px;
+
             color: var(--text);
             font-family: inherit;
             font-size: 14px;
             line-height: 1.6;
+
             resize: vertical;
-            transition: border-color .2s ease, box-shadow .2s ease;
+
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease;
         }
-        textarea::placeholder { color: #5a6b90; }
+
+        textarea::placeholder {
+            color: #5a6b90;
+        }
+
         textarea:focus {
             outline: none;
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(91, 192, 190, 0.15);
         }
 
-        .submit-row { margin-top: 32px; }
+        /* Submit */
 
-        /* Reveal animation */
-        .reveal { animation: fadeUp .4s ease both; }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: none; }
+        .submit-row {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin-top: 0;
+
+            transition:
+                max-height .5s ease,
+                opacity .3s ease,
+                margin-top .5s ease;
         }
 
-        /* ===== Thank-you ===== */
+        .submit-row.visible {
+            max-height: 100px;
+            opacity: 1;
+            margin-top: 32px;
+        }
+
+        /* Thanks */
+
+        .thanks-panel {
+            display: none;
+            text-align: center;
+        }
+
         .check-icon {
-            width: 40px; height: 40px;
+            width: 40px;
+            height: 40px;
             margin: 0 auto 20px;
             color: var(--accent);
             display: block;
             filter: drop-shadow(0 0 8px rgba(91, 192, 190, 0.35));
         }
-        .thanks-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 12px; }
-        .thanks-text { font-size: .95rem; line-height: 1.7; color: var(--muted); max-width: 380px; margin: 0 auto; }
+
+        .thanks-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .thanks-text {
+            font-size: .95rem;
+            line-height: 1.7;
+            color: var(--muted);
+            max-width: 380px;
+            margin: 0 auto;
+        }
+
+        /* Mobile */
 
         @media (max-width: 560px) {
-            body { padding: 40px 16px 32px; }
-            .panel { padding: 32px 24px; }
-            .options { flex-direction: column; }
-            .options label { padding: 13px 16px; }
+            body {
+                padding: 40px 16px 32px;
+            }
+
+            .panel {
+                padding: 32px 24px;
+            }
+
+            .options {
+                grid-template-columns: 1fr;
+            }
+
+            .options label {
+                padding: 13px 16px;
+            }
         }
     </style>
 </head>
+
 <body>
-    <main class="page">
-        <header>
-            <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 2.5C12 2.5 5 10.5 5 15a7 7 0 0 0 14 0c0-4.5-7-12.5-7-12.5z"/>
-                <path d="M9 14.5a3.5 3.5 0 0 0 3 3.5" stroke-linecap="round"/>
-            </svg>
-            <div class="eyebrow">ANI Exhibition Project</div>
-            <h1>Ocean Conservation</h1>
-            <p class="subtitle">A short anonymous survey about the everyday habits that affect our oceans.</p>
-            <svg class="wave-divider" viewBox="0 0 320 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M0 12 C 40 4, 80 20, 120 12 S 200 4, 240 12 S 300 20, 320 12" stroke-linecap="round"/>
-            </svg>
-        </header>
 
-        <div class="card">
-            <div class="panel-stack" id="panel-stack">
+<main class="page">
 
-                <!-- Confirmation panel -->
-                <div class="panel confirm" id="confirm-panel">
-                    <div class="confirm-inner">
-                        <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="5" y="11" width="14" height="9" rx="1"/>
-                            <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
-                            <circle cx="12" cy="15.5" r="1.2" fill="currentColor" stroke="none"/>
-                        </svg>
-                        <p class="confirm-title">Before you begin</p>
-                        <p class="confirm-text">This data will be sent to Students at Auckland Normal Intermediate, and the data being sent will be anonymous.</p>
-                        <button class="btn" type="button" id="understand-btn">Yes, I understand</button>
-                        <p class="confirm-note">Anonymous · No personal data collected</p>
-                    </div>
-                </div>
+    <header>
 
-                <!-- Survey panel -->
-                <div class="panel survey" id="survey-panel">
-                    <form id="survey-form">
-                        <!-- Q1 -->
-                        <div class="question">
-                            <p class="q-label"><span class="q-num">Q1</span>Do you litter in the ocean?</p>
-                            <div class="options">
-                                <input type="radio" name="litter" value="yes" id="litter-yes" required>
-                                <label for="litter-yes">Yes</label>
-                                <input type="radio" name="litter" value="no" id="litter-no">
-                                <label for="litter-no">No</label>
-                            </div>
-                        </div>
+        <svg class="drop-icon"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="1.5">
 
-                        <!-- Q2 (conditional) -->
-                        <div class="question hidden" id="q2-container">
-                            <p class="q-label"><span class="q-num">Q2</span><span id="q2-text">Why do you do it?</span></p>
-                            <textarea id="reason" placeholder="Share your thoughts..." required></textarea>
-                        </div>
+            <path d="M12 2.5C12 2.5 5 10.5 5 15a7 7 0 0 0 14 0c0-4.5-7-12.5-7-12.5z"/>
+            <path d="M9 14.5a3.5 3.5 0 0 0 3 3.5"
+                  stroke-linecap="round"/>
 
-                        <!-- Q3 -->
-                        <div class="question hidden" id="q3-container">
-                            <p class="q-label"><span class="q-num">Q3</span>How could we prevent it from happening?</p>
-                            <textarea id="prevention" placeholder="Share your ideas..." required></textarea>
-                        </div>
+        </svg>
 
-                        <!-- Submit -->
-                        <div class="submit-row hidden" id="submit-row">
-                            <button class="btn btn-block" type="submit" id="submit-btn">Submit</button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Thank-you panel -->
-                <div class="panel thanks" id="thanks-panel">
-                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="9"/>
-                        <path d="M8 12.5l2.5 2.5L16 9.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <p class="thanks-title">Thank you</p>
-                    <p class="thanks-text" id="thanks-text"></p>
-                </div>
-
-            </div>
+        <div class="eyebrow">
+            ANI Exhibition Project
         </div>
-    </main>
 
-    <script>
-        // ==========================================
-        // CONFIGURATION
-        // Paste your Discord Webhook URL inside the quotes below:
-        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1538808675186118787/rFb3UmZu7UJLMOVyg46BYGdjp39qgS5sPuSgtVvm83bSC-HIySeTyOMP3F7aHpobvzi9";
-        const STORAGE_KEY = "ani_ocean_survey_completed";
-        // ==========================================
+        <h1>Ocean Conservation</h1>
 
-        const panelStack     = document.getElementById('panel-stack');
-        const confirmPanel   = document.getElementById('confirm-panel');
-        const surveyPanel    = document.getElementById('survey-panel');
-        const thanksPanel    = document.getElementById('thanks-panel');
-        const thanksText     = document.getElementById('thanks-text');
-        const understandBtn  = document.getElementById('understand-btn');
+        <p class="subtitle">
+            A short anonymous survey about the everyday habits that affect our oceans.
+        </p>
 
-        const litterYes      = document.getElementById('litter-yes');
-        const litterNo       = document.getElementById('litter-no');
-        const q2Container    = document.getElementById('q2-container');
-        const q3Container    = document.getElementById('q3-container');
-        const q2Text         = document.getElementById('q2-text');
-        const submitRow      = document.getElementById('submit-row');
-        const submitBtn      = document.getElementById('submit-btn');
-        const surveyForm     = document.getElementById('survey-form');
+        <svg class="wave-divider"
+             viewBox="0 0 320 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="1.5">
 
-        let state = 'confirm'; // 'confirm' | 'survey' | 'thanks'
+            <path d="M0 12 C 40 4, 80 20, 120 12 S 200 4, 240 12 S 300 20, 320 12"
+                  stroke-linecap="round"/>
 
-        function fitStack(el) {
-            if (el && el.offsetParent !== null) {
-                panelStack.style.height = el.offsetHeight + 'px';
-            }
+        </svg>
+
+    </header>
+
+
+    <div class="card">
+
+        <div class="panel-stack">
+
+            <!-- =========================
+                 CONFIRMATION
+            ========================== -->
+
+            <section
+                class="panel confirm-panel"
+                id="confirm-panel">
+
+                <div class="confirm-inner">
+
+                    <svg class="lock-icon"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.5">
+
+                        <rect x="5"
+                              y="11"
+                              width="14"
+                              height="9"
+                              rx="1"/>
+
+                        <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+
+                        <circle cx="12"
+                                cy="15.5"
+                                r="1.2"
+                                fill="currentColor"
+                                stroke="none"/>
+
+                    </svg>
+
+                    <p class="confirm-title">
+                        Before you begin
+                    </p>
+
+                    <p class="confirm-text">
+                        This data will be sent to Students at Auckland Normal Intermediate,
+                        and the data being sent will be anonymous.
+                    </p>
+
+                    <button
+                        class="btn"
+                        type="button"
+                        id="understand-btn">
+
+                        Yes, I understand
+
+                    </button>
+
+                    <p class="confirm-note">
+                        Anonymous · No personal data collected
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SURVEY
+            ========================== -->
+
+            <section
+                class="panel survey-panel"
+                id="survey-panel">
+
+                <form
+                    id="survey-form"
+                    novalidate>
+
+                    <!-- Q1 -->
+
+                    <div class="question">
+
+                        <p class="q-label">
+                            <span class="q-num">Q1</span>
+                            Do you litter in the ocean?
+                        </p>
+
+                        <div class="options">
+
+                            <input
+                                type="radio"
+                                name="litter"
+                                value="yes"
+                                id="litter-yes"
+                                required>
+
+                            <label for="litter-yes">
+                                Yes
+                            </label>
+
+
+                            <input
+                                type="radio"
+                                name="litter"
+                                value="no"
+                                id="litter-no">
+
+                            <label for="litter-no">
+                                No
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Q2 -->
+
+                    <div
+                        class="question conditional"
+                        id="q2-container">
+
+                        <div class="conditional-inner">
+
+                            <p class="q-label">
+                                <span class="q-num">Q2</span>
+
+                                <span id="q2-text">
+                                    Why do you do it?
+                                </span>
+                            </p>
+
+                            <textarea
+                                id="reason"
+                                placeholder="Share your thoughts..."
+                                disabled></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Q3 -->
+
+                    <div
+                        class="question conditional"
+                        id="q3-container">
+
+                        <div class="conditional-inner">
+
+                            <p class="q-label">
+                                <span class="q-num">Q3</span>
+                                How could we prevent it from happening?
+                            </p>
+
+                            <textarea
+                                id="prevention"
+                                placeholder="Share your ideas..."
+                                disabled></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Submit -->
+
+                    <div
+                        class="submit-row"
+                        id="submit-row">
+
+                        <button
+                            class="btn btn-block"
+                            type="submit"
+                            id="submit-btn">
+
+                            Submit
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <!-- =========================
+                 THANK YOU
+            ========================== -->
+
+            <section
+                class="panel thanks-panel"
+                id="thanks-panel">
+
+                <svg class="check-icon"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.5">
+
+                    <circle cx="12"
+                            cy="12"
+                            r="9"/>
+
+                    <path
+                        d="M8 12.5l2.5 2.5L16 9.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"/>
+
+                </svg>
+
+                <p class="thanks-title">
+                    Thank you
+                </p>
+
+                <p
+                    class="thanks-text"
+                    id="thanks-text">
+                </p>
+
+            </section>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+    /*
+     * =====================================================
+     * CONFIGURATION
+     * =====================================================
+     *
+     * IMPORTANT:
+     * Replace this with your NEW Discord webhook.
+     *
+     * Do NOT use the webhook from your previous message.
+     */
+
+    const DISCORD_WEBHOOK_URL =
+        "https://discord.com/api/webhooks/1538808675186118787/rFb3UmZu7UJLMOVyg46BYGdjp39qgS5sPuSgtVvm83bSC-HIySeTyOMP3F7aHpobvzi9";
+
+
+    /*
+     * Prevent the same browser from submitting repeatedly.
+     */
+
+    const STORAGE_KEY =
+        "ani_ocean_survey_completed";
+
+
+    /*
+     * =====================================================
+     * ELEMENTS
+     * =====================================================
+     */
+
+    const confirmPanel =
+        document.getElementById("confirm-panel");
+
+    const surveyPanel =
+        document.getElementById("survey-panel");
+
+    const thanksPanel =
+        document.getElementById("thanks-panel");
+
+    const understandBtn =
+        document.getElementById("understand-btn");
+
+    const surveyForm =
+        document.getElementById("survey-form");
+
+    const litterYes =
+        document.getElementById("litter-yes");
+
+    const litterNo =
+        document.getElementById("litter-no");
+
+    const q2Container =
+        document.getElementById("q2-container");
+
+    const q3Container =
+        document.getElementById("q3-container");
+
+    const q2Text =
+        document.getElementById("q2-text");
+
+    const reason =
+        document.getElementById("reason");
+
+    const prevention =
+        document.getElementById("prevention");
+
+    const submitRow =
+        document.getElementById("submit-row");
+
+    const submitBtn =
+        document.getElementById("submit-btn");
+
+    const thanksText =
+        document.getElementById("thanks-text");
+
+
+    /*
+     * =====================================================
+     * STATE
+     * =====================================================
+     */
+
+    let state = "confirm";
+
+
+    /*
+     * =====================================================
+     * THANK YOU SCREEN
+     * =====================================================
+     */
+
+    function showThanks(message) {
+
+        state = "thanks";
+
+        confirmPanel.style.display = "none";
+        surveyPanel.style.display = "none";
+
+        thanksText.textContent = message;
+
+        thanksPanel.style.display = "block";
+
+    }
+
+
+    /*
+     * =====================================================
+     * CHECK PREVIOUS SUBMISSION
+     * =====================================================
+     */
+
+    if (localStorage.getItem(STORAGE_KEY)) {
+
+        showThanks(
+            "You have already completed this survey. Thank you!"
+        );
+
+    }
+
+
+    /*
+     * =====================================================
+     * OPEN SURVEY
+     * =====================================================
+     */
+
+    understandBtn.addEventListener("click", () => {
+
+        if (state !== "confirm") {
+            return;
         }
 
-        function showThanks(message) {
-            state = 'thanks';
-            confirmPanel.classList.add('hidden');
-            surveyPanel.classList.add('hidden');
-            thanksText.textContent = message;
-            thanksPanel.style.display = 'block';
-            panelStack.style.height = 'auto';
+        state = "survey";
+
+        confirmPanel.classList.add("exit");
+
+        setTimeout(() => {
+
+            confirmPanel.style.display = "none";
+
+            surveyPanel.classList.add("active");
+
+        }, 350);
+
+    });
+
+
+    /*
+     * =====================================================
+     * UPDATE QUESTIONS
+     * =====================================================
+     */
+
+    function updateQuestions() {
+
+        const selected =
+            document.querySelector(
+                'input[name="litter"]:checked'
+            );
+
+
+        if (!selected) {
+            return;
         }
 
-        // Anti-abuse: check localStorage on load
-        if (localStorage.getItem(STORAGE_KEY)) {
-            showThanks("You have already completed this survey. Thank you!");
+
+        /*
+         * Reveal Q2 and Q3.
+         */
+
+        q2Container.classList.add("visible");
+        q3Container.classList.add("visible");
+
+
+        /*
+         * Enable their textareas.
+         */
+
+        reason.disabled = false;
+        prevention.disabled = false;
+
+        reason.required = true;
+        prevention.required = true;
+
+
+        /*
+         * Change Q2 based on Q1.
+         */
+
+        if (selected.value === "yes") {
+
+            q2Text.textContent =
+                "Why do you do it?";
+
         } else {
-            fitStack(confirmPanel);
+
+            q2Text.textContent =
+                "Why do you think people do it?";
+
         }
 
-        // Transition: confirm slides left, survey slides in from the right
-        understandBtn.addEventListener('click', () => {
-            if (state !== 'confirm') return;
-            state = 'survey';
-            confirmPanel.classList.add('exit');
-            surveyPanel.classList.add('enter');
-            setTimeout(() => {
-                confirmPanel.classList.add('hidden');
-                fitStack(surveyPanel);
-            }, 600);
-        });
 
-        // Dynamic questions
-        function updateFormState() {
-            [q2Container, q3Container, submitRow].forEach(el => {
-                el.classList.remove('hidden');
-                el.classList.add('reveal');
-            });
-            q2Text.textContent = litterYes.checked
-                ? "Why do you do it?"
-                : "Why do you think people do it?";
-            fitStack(surveyPanel);
-        }
+        /*
+         * Reveal submit button.
+         */
 
-        litterYes.addEventListener('change', updateFormState);
-        litterNo.addEventListener('change', updateFormState);
+        submitRow.classList.add("visible");
 
-        // Keep height in sync when textareas grow/shrink
-        surveyForm.addEventListener('input', () => {
-            if (state === 'survey') fitStack(surveyPanel);
-        });
-        window.addEventListener('resize', () => {
-            if (state === 'confirm') fitStack(confirmPanel);
-            else if (state === 'survey') fitStack(surveyPanel);
-        });
+    }
 
-        // Submission
-        surveyForm.addEventListener('submit', async function (e) {
-            e.preventDefault();
-            if (state !== 'survey') return;
+
+    /*
+     * Both buttons explicitly listen for changes.
+     */
+
+    litterYes.addEventListener(
+        "change",
+        updateQuestions
+    );
+
+    litterNo.addEventListener(
+        "change",
+        updateQuestions
+    );
+
+
+    /*
+     * =====================================================
+     * SUBMIT
+     * =====================================================
+     */
+
+    surveyForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            if (state !== "survey") {
+                return;
+            }
+
+
+            /*
+             * Check localStorage again.
+             */
 
             if (localStorage.getItem(STORAGE_KEY)) {
-                showThanks("You have already completed this survey. Thank you!");
+
+                showThanks(
+                    "You have already completed this survey. Thank you!"
+                );
+
                 return;
             }
 
-            if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL === "YOUR_WEBHOOK_URL_HERE") {
-                alert("Developer Error: The Discord Webhook URL has not been set up in the HTML file yet.");
+
+            /*
+             * Make sure webhook exists.
+             */
+
+            if (
+                !DISCORD_WEBHOOK_URL ||
+                DISCORD_WEBHOOK_URL ===
+                "PUT_YOUR_NEW_DISCORD_WEBHOOK_HERE"
+            ) {
+
+                alert(
+                    "The Discord webhook has not been configured."
+                );
+
                 return;
             }
 
-            const isLittering     = litterYes.checked ? "Yes" : "No";
-            const reasonQuestion  = litterYes.checked ? "Why do you do it?" : "Why do you think people do it?";
-            const reasonResponse  = document.getElementById('reason').value;
-            const preventionResp  = document.getElementById('prevention').value;
+
+            /*
+             * Get Q1 answer.
+             */
+
+            const selected =
+                document.querySelector(
+                    'input[name="litter"]:checked'
+                );
+
+
+            if (!selected) {
+
+                alert(
+                    "Please select Yes or No."
+                );
+
+                return;
+            }
+
+
+            /*
+             * Get text answers.
+             */
+
+            const reasonResponse =
+                reason.value.trim();
+
+            const preventionResponse =
+                prevention.value.trim();
+
+
+            /*
+             * Validate text answers.
+             */
+
+            if (!reasonResponse) {
+
+                alert(
+                    "Please answer question 2."
+                );
+
+                reason.focus();
+
+                return;
+            }
+
+
+            if (!preventionResponse) {
+
+                alert(
+                    "Please answer question 3."
+                );
+
+                prevention.focus();
+
+                return;
+            }
+
+
+            /*
+             * Determine Q2 question text.
+             */
+
+            const reasonQuestion =
+                selected.value === "yes"
+                    ? "Why do you do it?"
+                    : "Why do you think people do it?";
+
+
+            /*
+             * Discord payload.
+             */
 
             const payload = {
+
                 username: "ANI Ocean Survey",
-                embeds: [{
-                    title: "🌊 New Ocean Survey Submission",
-                    color: 0x5bc0be,
-                    fields: [
-                        { name: "Do you litter in the ocean?", value: isLittering, inline: false },
-                        { name: reasonQuestion, value: reasonResponse || "—", inline: false },
-                        { name: "How could we prevent it from happening?", value: preventionResp || "—", inline: false }
-                    ],
-                    footer: { text: "Sent anonymously · ANI Exhibition Project" }
-                }]
+
+                embeds: [
+
+                    {
+                        title:
+                            "🌊 New Ocean Survey Submission",
+
+                        color:
+                            0x5bc0be,
+
+                        fields: [
+
+                            {
+                                name:
+                                    "Do you litter in the ocean?",
+
+                                value:
+                                    selected.value === "yes"
+                                        ? "Yes"
+                                        : "No",
+
+                                inline:
+                                    false
+                            },
+
+                            {
+                                name:
+                                    reasonQuestion,
+
+                                value:
+                                    reasonResponse || "—",
+
+                                inline:
+                                    false
+                            },
+
+                            {
+                                name:
+                                    "How could we prevent it from happening?",
+
+                                value:
+                                    preventionResponse || "—",
+
+                                inline:
+                                    false
+                            }
+
+                        ],
+
+                        footer: {
+                            text:
+                                "Sent anonymously · ANI Exhibition Project"
+                        }
+
+                    }
+
+                ]
+
             };
 
+
+            /*
+             * Disable button while sending.
+             */
+
+            submitBtn.disabled = true;
+
+            submitBtn.textContent =
+                "Sending...";
+
+
             try {
-                submitBtn.textContent = "Sending...";
-                submitBtn.disabled = true;
 
-                const response = await fetch(DISCORD_WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
+                const response =
+                    await fetch(
+                        DISCORD_WEBHOOK_URL,
+                        {
+                            method: "POST",
 
-                if (response.ok) {
-                    localStorage.setItem(STORAGE_KEY, "true");
-                    showThanks("Thank you! Your response has been recorded anonymously.");
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(payload)
+                        }
+                    );
+
+
+                /*
+                 * Discord webhooks normally return
+                 * HTTP 204 when successful.
+                 */
+
+                if (
+                    response.ok ||
+                    response.status === 204
+                ) {
+
+                    localStorage.setItem(
+                        STORAGE_KEY,
+                        "true"
+                    );
+
+                    showThanks(
+                        "Thank you! Your response has been recorded anonymously."
+                    );
+
                 } else {
-                    alert("Submission failed. Make sure the Discord Webhook URL is correct.");
+
+                    console.error(
+                        "Discord returned:",
+                        response.status
+                    );
+
+                    alert(
+                        "Submission failed. Please try again."
+                    );
+
                 }
+
             } catch (error) {
-                alert("An error occurred while sending the data.");
-                console.error(error);
+
+                console.error(
+                    "Submission error:",
+                    error
+                );
+
+                alert(
+                    "An error occurred while sending the survey. Please check your internet connection and try again."
+                );
+
             } finally {
-                submitBtn.textContent = "Submit";
+
                 submitBtn.disabled = false;
+
+                submitBtn.textContent =
+                    "Submit";
+
             }
-        });
-    </script>
+
+        }
+    );
+
+</script>
+
 </body>
 </html>
