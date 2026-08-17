@@ -7,15 +7,17 @@
     <style>
         /* Deep Navy Ocean Theme */
         :root {
-            --navy-bg: #0a1128;
-            --navy-panel: #1c2541;
+            --navy-bg-top: #1c2541;
+            --navy-bg-bottom: #050814;
+            --navy-panel: #11182c;
             --ocean-blue: #3a506b;
             --text-color: #ffffff;
             --accent: #5bc0be;
         }
 
         body {
-            background-color: var(--navy-bg);
+            /* Gradient Background */
+            background: linear-gradient(180deg, var(--navy-bg-top) 0%, var(--navy-bg-bottom) 100%);
             color: var(--text-color);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -24,14 +26,66 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
         }
+
+        /* --- Side Decorations: Waves and Bubbles --- */
+        .wave-sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 120px;
+            /* SVG Vertical Wave Pattern */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 100' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C25,25 25,25 0,50 C-25,75 -25,75 0,100 L50,100 L50,0 Z' fill='rgba(91,192,190,0.05)'/%3E%3C/svg%3E");
+            background-size: 100% 200px;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .wave-sidebar.left {
+            left: 0;
+        }
+
+        .wave-sidebar.right {
+            right: 0;
+            transform: scaleX(-1);
+        }
+
+        /* Animated Bubbles */
+        .bubble {
+            position: fixed;
+            background: rgba(91, 192, 190, 0.2);
+            border-radius: 50%;
+            bottom: -50px;
+            animation: float infinite ease-in;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Creating bubbles with different sizes, speeds, and positions */
+        .b1 { left: 5%; width: 20px; height: 20px; animation-duration: 8s; animation-delay: 0s; }
+        .b2 { left: 10%; width: 40px; height: 40px; animation-duration: 12s; animation-delay: 2s; }
+        .b3 { left: 8%; width: 15px; height: 15px; animation-duration: 6s; animation-delay: 4s; }
+        .b4 { right: 5%; width: 25px; height: 25px; animation-duration: 9s; animation-delay: 1s; }
+        .b5 { right: 12%; width: 35px; height: 35px; animation-duration: 14s; animation-delay: 3s; }
+        .b6 { right: 8%; width: 10px; height: 10px; animation-duration: 5s; animation-delay: 5s; }
+        /* ------------------------------------------- */
 
         /* Typography */
         h1 {
             font-size: 3rem;
+            margin-top: 40px;
             margin-bottom: 10px;
             text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+            z-index: 1;
         }
 
         h2 {
@@ -41,43 +95,37 @@
             margin-bottom: 40px;
             text-align: center;
             color: var(--accent);
+            z-index: 1;
         }
 
         /* Containers */
         .container {
             background-color: var(--navy-panel);
-            padding: 30px;
+            padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
             width: 100%;
             max-width: 600px;
-            margin-bottom: 20px;
-        }
-
-        /* Settings Panel */
-        .settings-panel {
-            background-color: var(--ocean-blue);
-            border: 1px dashed var(--accent);
-        }
-
-        .settings-panel h3 {
-            margin-top: 0;
+            margin-bottom: 40px;
+            z-index: 1;
+            border: 1px solid rgba(91, 192, 190, 0.2);
         }
 
         /* Form Elements */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             font-size: 1.1rem;
+            color: #e0e0e0;
         }
 
         .radio-group {
             display: flex;
-            gap: 20px;
+            gap: 30px;
             margin-bottom: 15px;
         }
 
@@ -85,67 +133,72 @@
             display: inline-flex;
             align-items: center;
             cursor: pointer;
+            font-size: 1.1rem;
         }
 
         .radio-group input[type="radio"] {
-            margin-right: 8px;
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
             accent-color: var(--accent);
         }
 
-        input[type="text"], input[type="url"], textarea {
+        textarea {
             width: 100%;
-            padding: 12px;
-            background-color: var(--navy-bg);
+            padding: 15px;
+            background-color: rgba(10, 17, 40, 0.8);
             border: 1px solid var(--ocean-blue);
             color: var(--text-color);
-            border-radius: 6px;
+            border-radius: 8px;
             box-sizing: border-box;
             font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s;
         }
 
-        input[type="text"]:focus, input[type="url"]:focus, textarea:focus {
+        textarea:focus {
             outline: none;
             border-color: var(--accent);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
+            box-shadow: 0 0 8px rgba(91, 192, 190, 0.3);
         }
 
         /* Button */
         button {
             background-color: var(--accent);
-            color: var(--navy-bg);
+            color: var(--navy-bg-bottom);
             border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
+            padding: 16px 30px;
+            font-size: 1.2rem;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             width: 100%;
-            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            transition: background-color 0.3s ease, transform 0.1s ease;
         }
 
         button:hover {
             background-color: #4eb0ae;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
 
+    <!-- Background Decorations -->
+    <div class="wave-sidebar left"></div>
+    <div class="wave-sidebar right"></div>
+    <div class="bubble b1"></div>
+    <div class="bubble b2"></div>
+    <div class="bubble b3"></div>
+    <div class="bubble b4"></div>
+    <div class="bubble b5"></div>
+    <div class="bubble b6"></div>
+
     <h1>Ocean Conservation</h1>
     <h2>Help us understand environmental habits</h2>
-
-    <!-- Configurable Settings -->
-    <div class="container settings-panel">
-        <h3>Admin Settings</h3>
-        <p style="font-size: 0.9rem; margin-bottom: 15px;">Configure where the anonymous survey data is sent.</p>
-        <div class="form-group">
-            <label for="webhook-url">Discord Webhook URL:</label>
-            <input type="url" id="webhook-url" placeholder="https://discord.com/api/webhooks/..." required>
-        </div>
-    </div>
 
     <!-- Survey Form -->
     <div class="container">
@@ -163,33 +216,47 @@
                 </div>
             </div>
 
-            <!-- Question 2 (Dynamic) -->
+            <!-- Question 2 (Dynamic, Hidden initially) -->
             <div class="form-group" id="q2-container" style="display: none;">
                 <label id="q2-label">Why do you do it?</label>
                 <textarea id="reason" placeholder="Enter your response here..." required></textarea>
             </div>
 
-            <!-- Question 3 -->
-            <div class="form-group">
+            <!-- Question 3 (Hidden initially) -->
+            <div class="form-group" id="q3-container" style="display: none;">
                 <label>How could we prevent it from happening?</label>
                 <textarea id="prevention" placeholder="Enter your response here..." required></textarea>
             </div>
 
-            <button type="submit">Submit Anonymously</button>
+            <!-- Submit Button (Hidden initially) -->
+            <button type="submit" id="submit-btn" style="display: none;">Submit Anonymously</button>
         </form>
     </div>
 
     <script>
+        // ==========================================
+        // CONFIGURATION
+        // Paste your Discord Webhook URL inside the quotes below:
+        const DISCORD_WEBHOOK_URL = "YOUR_WEBHOOK_URL_HERE"; 
+        // ==========================================
+
         // DOM Elements
         const litterYes = document.getElementById('litter-yes');
         const litterNo = document.getElementById('litter-no');
         const q2Container = document.getElementById('q2-container');
+        const q3Container = document.getElementById('q3-container');
+        const submitBtn = document.getElementById('submit-btn');
         const q2Label = document.getElementById('q2-label');
         const surveyForm = document.getElementById('survey-form');
 
         // Dynamic Question Logic
-        function updateQuestionTwo() {
-            q2Container.style.display = 'block'; // Show the question once an option is picked
+        function updateFormState() {
+            // Unhide the rest of the form
+            q2Container.style.display = 'block';
+            q3Container.style.display = 'block';
+            submitBtn.style.display = 'block';
+
+            // Change Q2 text based on selection
             if (litterYes.checked) {
                 q2Label.textContent = "Why do you do it?";
             } else if (litterNo.checked) {
@@ -197,17 +264,16 @@
             }
         }
 
-        litterYes.addEventListener('change', updateQuestionTwo);
-        litterNo.addEventListener('change', updateQuestionTwo);
+        // Listen for clicks on the first question
+        litterYes.addEventListener('change', updateFormState);
+        litterNo.addEventListener('change', updateFormState);
 
         // Form Submission Logic
         surveyForm.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Prevent standard page reload
+            e.preventDefault(); 
 
-            const webhookUrl = document.getElementById('webhook-url').value;
-            
-            if (!webhookUrl) {
-                alert("Error: Please configure the Discord Webhook URL in the Admin Settings first.");
+            if (DISCORD_WEBHOOK_URL === "YOUR_WEBHOOK_URL_HERE" || !DISCORD_WEBHOOK_URL) {
+                alert("Developer Error: The Discord Webhook URL has not been set up in the HTML file yet.");
                 return;
             }
 
@@ -222,49 +288,45 @@
                 username: "Anonymous Survey Bot",
                 embeds: [{
                     title: "📝 New Survey Submission",
-                    color: 2386347, // Matches the theme accent color
+                    color: 2386347, 
                     fields: [
-                        {
-                            name: "Do you litter?",
-                            value: isLittering,
-                            inline: false
-                        },
-                        {
-                            name: q2Question,
-                            value: reasonResponse,
-                            inline: false
-                        },
-                        {
-                            name: "How could we prevent it from happening?",
-                            value: preventionResponse,
-                            inline: false
-                        }
+                        { name: "Do you litter?", value: isLittering, inline: false },
+                        { name: q2Question, value: reasonResponse, inline: false },
+                        { name: "How could we prevent it from happening?", value: preventionResponse, inline: false }
                     ],
-                    footer: {
-                        text: "Sent anonymously via Ocean Conservation Survey"
-                    }
+                    footer: { text: "Sent anonymously via Ocean Conservation Survey" }
                 }]
             };
 
             // Send to Discord
             try {
-                const response = await fetch(webhookUrl, {
+                // Change button state to show it's working
+                submitBtn.textContent = "Sending...";
+                submitBtn.disabled = true;
+
+                const response = await fetch(DISCORD_WEBHOOK_URL, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
                 if (response.ok) {
                     alert("Thank you! Your survey has been submitted anonymously.");
                     surveyForm.reset();
-                    q2Container.style.display = 'none'; // Hide dynamic question again
+                    // Re-hide elements after submission
+                    q2Container.style.display = 'none';
+                    q3Container.style.display = 'none';
+                    submitBtn.style.display = 'none';
                 } else {
-                    alert("Submission failed. Make sure your Discord Webhook URL is correct.");
+                    alert("Submission failed. Make sure the Discord Webhook URL is correct.");
                 }
             } catch (error) {
-                alert("An error occurred while sending the data: " + error.message);
+                alert("An error occurred while sending the data.");
+                console.error(error);
+            } finally {
+                // Reset button state
+                submitBtn.textContent = "Submit Anonymously";
+                submitBtn.disabled = false;
             }
         });
     </script>
