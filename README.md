@@ -24,7 +24,7 @@ When the user clicks this button, play a smooth tween animation where the confir
 
 Survey Questions:
 
-The first question is 'Do you litter?' with 'Yes' and 'No' radio buttons.
+The first question is 'Do you litter in the ocean?' with 'Yes' and 'No' radio buttons.
 
 The follow-up questions and the submit button must remain hidden until the user selects 'Yes' or 'No'.
 
