@@ -57,7 +57,6 @@
         }
 
         /* Header */
-
         header {
             text-align: center;
             margin-bottom: 48px;
@@ -109,7 +108,6 @@
         }
 
         /* Card */
-
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -129,7 +127,6 @@
         }
 
         /* Confirmation */
-
         .confirm-panel {
             opacity: 1;
             transform: translateX(0);
@@ -179,7 +176,6 @@
         }
 
         /* Buttons */
-
         .btn {
             display: inline-block;
             padding: 15px 32px;
@@ -217,7 +213,6 @@
         }
 
         /* Survey */
-
         .survey-panel {
             display: none;
         }
@@ -232,7 +227,6 @@
                 opacity: 0;
                 transform: translateX(50px);
             }
-
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -240,7 +234,6 @@
         }
 
         /* Questions */
-
         .question {
             padding: 28px 0;
             border-bottom: 1px solid var(--border);
@@ -271,17 +264,11 @@
         }
 
         /* Yes / No */
-
         .options {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
-
-        /*
-         * The actual radio is invisible, but still exists.
-         * The label is what the user clicks.
-         */
 
         .options input[type="radio"] {
             position: absolute;
@@ -296,20 +283,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-
             padding: 14px 20px;
-
             border: 1px solid var(--border);
             border-radius: 8px;
-
             font-size: 14px;
             font-weight: 500;
-
             cursor: pointer;
             user-select: none;
-
             background: rgba(255, 255, 255, 0.02);
-
             transition:
                 background .2s ease,
                 border-color .2s ease,
@@ -341,18 +322,14 @@
         }
 
         /* Conditional questions */
-
         .conditional {
             display: grid;
             grid-template-rows: 0fr;
             opacity: 0;
             overflow: hidden;
-
             padding-top: 0;
             padding-bottom: 0;
-
             border-bottom: 0;
-
             transition:
                 grid-template-rows .5s cubic-bezier(.22, 1, .36, 1),
                 opacity .3s ease,
@@ -373,23 +350,18 @@
         }
 
         /* Textareas */
-
         textarea {
             width: 100%;
             min-height: 110px;
             padding: 14px 16px;
-
             background: rgba(10, 15, 30, 0.6);
             border: 1px solid var(--border);
             border-radius: 8px;
-
             color: var(--text);
             font-family: inherit;
             font-size: 14px;
             line-height: 1.6;
-
             resize: vertical;
-
             transition:
                 border-color .2s ease,
                 box-shadow .2s ease;
@@ -406,13 +378,11 @@
         }
 
         /* Submit */
-
         .submit-row {
             max-height: 0;
             opacity: 0;
             overflow: hidden;
             margin-top: 0;
-
             transition:
                 max-height .5s ease,
                 opacity .3s ease,
@@ -426,7 +396,6 @@
         }
 
         /* Thanks */
-
         .thanks-panel {
             display: none;
             text-align: center;
@@ -456,7 +425,6 @@
         }
 
         /* Mobile */
-
         @media (max-width: 560px) {
             body {
                 padding: 40px 16px 32px;
@@ -476,23 +444,13 @@
         }
     </style>
 </head>
-
 <body>
 
 <main class="page">
-
     <header>
-
-        <svg class="drop-icon"
-             viewBox="0 0 24 24"
-             fill="none"
-             stroke="currentColor"
-             stroke-width="1.5">
-
+        <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 2.5C12 2.5 5 10.5 5 15a7 7 0 0 0 14 0c0-4.5-7-12.5-7-12.5z"/>
-            <path d="M9 14.5a3.5 3.5 0 0 0 3 3.5"
-                  stroke-linecap="round"/>
-
+            <path d="M9 14.5a3.5 3.5 0 0 0 3 3.5" stroke-linecap="round"/>
         </svg>
 
         <div class="eyebrow">
@@ -505,745 +463,263 @@
             A short anonymous survey about the everyday habits that affect our oceans.
         </p>
 
-        <svg class="wave-divider"
-             viewBox="0 0 320 24"
-             fill="none"
-             stroke="currentColor"
-             stroke-width="1.5">
-
-            <path d="M0 12 C 40 4, 80 20, 120 12 S 200 4, 240 12 S 300 20, 320 12"
-                  stroke-linecap="round"/>
-
+        <svg class="wave-divider" viewBox="0 0 320 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M0 12 C 40 4, 80 20, 120 12 S 200 4, 240 12 S 300 20, 320 12" stroke-linecap="round"/>
         </svg>
-
     </header>
 
-
     <div class="card">
-
         <div class="panel-stack">
-
             <!-- =========================
                  CONFIRMATION
             ========================== -->
-
-            <section
-                class="panel confirm-panel"
-                id="confirm-panel">
-
+            <section class="panel confirm-panel" id="confirm-panel">
                 <div class="confirm-inner">
-
-                    <svg class="lock-icon"
-                         viewBox="0 0 24 24"
-                         fill="none"
-                         stroke="currentColor"
-                         stroke-width="1.5">
-
-                        <rect x="5"
-                              y="11"
-                              width="14"
-                              height="9"
-                              rx="1"/>
-
+                    <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="5" y="11" width="14" height="9" rx="1"/>
                         <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
-
-                        <circle cx="12"
-                                cy="15.5"
-                                r="1.2"
-                                fill="currentColor"
-                                stroke="none"/>
-
+                        <circle cx="12" cy="15.5" r="1.2" fill="currentColor" stroke="none"/>
                     </svg>
-
-                    <p class="confirm-title">
-                        Before you begin
-                    </p>
-
+                    <p class="confirm-title">Before you begin</p>
                     <p class="confirm-text">
                         This data will be sent to Students at Auckland Normal Intermediate,
                         and the data being sent will be anonymous.
                     </p>
-
-                    <button
-                        class="btn"
-                        type="button"
-                        id="understand-btn">
-
+                    <button class="btn" type="button" id="understand-btn">
                         Yes, I understand
-
                     </button>
-
                     <p class="confirm-note">
                         Anonymous · No personal data collected
                     </p>
-
                 </div>
-
             </section>
-
 
             <!-- =========================
                  SURVEY
             ========================== -->
-
-            <section
-                class="panel survey-panel"
-                id="survey-panel">
-
-                <form
-                    id="survey-form"
-                    novalidate>
-
+            <section class="panel survey-panel" id="survey-panel">
+                <form id="survey-form" novalidate>
                     <!-- Q1 -->
-
                     <div class="question">
-
                         <p class="q-label">
                             <span class="q-num">Q1</span>
                             Do you litter in the ocean?
                         </p>
-
                         <div class="options">
-
-                            <input
-                                type="radio"
-                                name="litter"
-                                value="yes"
-                                id="litter-yes"
-                                required>
-
-                            <label for="litter-yes">
-                                Yes
-                            </label>
-
-
-                            <input
-                                type="radio"
-                                name="litter"
-                                value="no"
-                                id="litter-no">
-
-                            <label for="litter-no">
-                                No
-                            </label>
-
+                            <input type="radio" name="litter" value="yes" id="litter-yes" required>
+                            <label for="litter-yes">Yes</label>
+                            
+                            <input type="radio" name="litter" value="no" id="litter-no">
+                            <label for="litter-no">No</label>
                         </div>
-
                     </div>
-
 
                     <!-- Q2 -->
-
-                    <div
-                        class="question conditional"
-                        id="q2-container">
-
+                    <div class="question conditional" id="q2-container">
                         <div class="conditional-inner">
-
                             <p class="q-label">
                                 <span class="q-num">Q2</span>
-
-                                <span id="q2-text">
-                                    Why do you do it?
-                                </span>
+                                <span id="q2-text">Why do you do it?</span>
                             </p>
-
-                            <textarea
-                                id="reason"
-                                placeholder="Share your thoughts..."
-                                disabled></textarea>
-
+                            <textarea id="reason" placeholder="Share your thoughts..." disabled></textarea>
                         </div>
-
                     </div>
 
-
                     <!-- Q3 -->
-
-                    <div
-                        class="question conditional"
-                        id="q3-container">
-
+                    <div class="question conditional" id="q3-container">
                         <div class="conditional-inner">
-
                             <p class="q-label">
                                 <span class="q-num">Q3</span>
                                 How could we prevent it from happening?
                             </p>
-
-                            <textarea
-                                id="prevention"
-                                placeholder="Share your ideas..."
-                                disabled></textarea>
-
+                            <textarea id="prevention" placeholder="Share your ideas..." disabled></textarea>
                         </div>
-
                     </div>
-
 
                     <!-- Submit -->
-
-                    <div
-                        class="submit-row"
-                        id="submit-row">
-
-                        <button
-                            class="btn btn-block"
-                            type="submit"
-                            id="submit-btn">
-
+                    <div class="submit-row" id="submit-row">
+                        <button class="btn btn-block" type="submit" id="submit-btn">
                             Submit
-
                         </button>
-
                     </div>
-
                 </form>
-
             </section>
-
 
             <!-- =========================
                  THANK YOU
             ========================== -->
-
-            <section
-                class="panel thanks-panel"
-                id="thanks-panel">
-
-                <svg class="check-icon"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     stroke="currentColor"
-                     stroke-width="1.5">
-
-                    <circle cx="12"
-                            cy="12"
-                            r="9"/>
-
-                    <path
-                        d="M8 12.5l2.5 2.5L16 9.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"/>
-
+            <section class="panel thanks-panel" id="thanks-panel">
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M8 12.5l2.5 2.5L16 9.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-
-                <p class="thanks-title">
-                    Thank you
-                </p>
-
-                <p
-                    class="thanks-text"
-                    id="thanks-text">
-                </p>
-
+                <p class="thanks-title">Thank you</p>
+                <p class="thanks-text" id="thanks-text"></p>
             </section>
-
         </div>
-
     </div>
-
 </main>
 
-
 <script>
-
     /*
      * =====================================================
      * CONFIGURATION
      * =====================================================
      *
      * IMPORTANT:
-     * Replace this with your NEW Discord webhook.
-     *
-     * Do NOT use the webhook from your previous message.
+     * Replace this URL with your chosen ntfy topic URL.
+     * e.g., "https://ntfy.sh/ani_ocean_survey_2026"
      */
+    const NTFY_TOPIC_URL = "https://ntfy.sh/ANI-exhibition-project-red-bro-cookie-security";
 
-    const DISCORD_WEBHOOK_URL =
-        "https://discord.com/api/webhooks/1538808675186118787/rFb3UmZu7UJLMOVyg46BYGdjp39qgS5sPuSgtVvm83bSC-HIySeTyOMP3F7aHpobvzi9";
+    const STORAGE_KEY = "ani_ocean_survey_completed";
 
-
-    /*
-     * Prevent the same browser from submitting repeatedly.
-     */
-
-    const STORAGE_KEY =
-        "ani_ocean_survey_completed";
-
-
-    /*
-     * =====================================================
-     * ELEMENTS
-     * =====================================================
-     */
-
-    const confirmPanel =
-        document.getElementById("confirm-panel");
-
-    const surveyPanel =
-        document.getElementById("survey-panel");
-
-    const thanksPanel =
-        document.getElementById("thanks-panel");
-
-    const understandBtn =
-        document.getElementById("understand-btn");
-
-    const surveyForm =
-        document.getElementById("survey-form");
-
-    const litterYes =
-        document.getElementById("litter-yes");
-
-    const litterNo =
-        document.getElementById("litter-no");
-
-    const q2Container =
-        document.getElementById("q2-container");
-
-    const q3Container =
-        document.getElementById("q3-container");
-
-    const q2Text =
-        document.getElementById("q2-text");
-
-    const reason =
-        document.getElementById("reason");
-
-    const prevention =
-        document.getElementById("prevention");
-
-    const submitRow =
-        document.getElementById("submit-row");
-
-    const submitBtn =
-        document.getElementById("submit-btn");
-
-    const thanksText =
-        document.getElementById("thanks-text");
-
-
-    /*
-     * =====================================================
-     * STATE
-     * =====================================================
-     */
+    /* Elements */
+    const confirmPanel = document.getElementById("confirm-panel");
+    const surveyPanel = document.getElementById("survey-panel");
+    const thanksPanel = document.getElementById("thanks-panel");
+    const understandBtn = document.getElementById("understand-btn");
+    const surveyForm = document.getElementById("survey-form");
+    const litterYes = document.getElementById("litter-yes");
+    const litterNo = document.getElementById("litter-no");
+    const q2Container = document.getElementById("q2-container");
+    const q3Container = document.getElementById("q3-container");
+    const q2Text = document.getElementById("q2-text");
+    const reason = document.getElementById("reason");
+    const prevention = document.getElementById("prevention");
+    const submitRow = document.getElementById("submit-row");
+    const submitBtn = document.getElementById("submit-btn");
+    const thanksText = document.getElementById("thanks-text");
 
     let state = "confirm";
 
-
-    /*
-     * =====================================================
-     * THANK YOU SCREEN
-     * =====================================================
-     */
-
+    /* Thank You Screen */
     function showThanks(message) {
-
         state = "thanks";
-
         confirmPanel.style.display = "none";
         surveyPanel.style.display = "none";
-
         thanksText.textContent = message;
-
         thanksPanel.style.display = "block";
-
     }
-
-
-    /*
-     * =====================================================
-     * CHECK PREVIOUS SUBMISSION
-     * =====================================================
-     */
 
     if (localStorage.getItem(STORAGE_KEY)) {
-
-        showThanks(
-            "You have already completed this survey. Thank you!"
-        );
-
+        showThanks("You have already completed this survey. Thank you!");
     }
 
-
-    /*
-     * =====================================================
-     * OPEN SURVEY
-     * =====================================================
-     */
-
+    /* Open Survey */
     understandBtn.addEventListener("click", () => {
-
-        if (state !== "confirm") {
-            return;
-        }
-
+        if (state !== "confirm") return;
         state = "survey";
-
         confirmPanel.classList.add("exit");
-
         setTimeout(() => {
-
             confirmPanel.style.display = "none";
-
             surveyPanel.classList.add("active");
-
         }, 350);
-
     });
 
-
-    /*
-     * =====================================================
-     * UPDATE QUESTIONS
-     * =====================================================
-     */
-
+    /* Update Questions */
     function updateQuestions() {
-
-        const selected =
-            document.querySelector(
-                'input[name="litter"]:checked'
-            );
-
-
-        if (!selected) {
-            return;
-        }
-
-
-        /*
-         * Reveal Q2 and Q3.
-         */
+        const selected = document.querySelector('input[name="litter"]:checked');
+        if (!selected) return;
 
         q2Container.classList.add("visible");
         q3Container.classList.add("visible");
 
-
-        /*
-         * Enable their textareas.
-         */
-
         reason.disabled = false;
         prevention.disabled = false;
-
         reason.required = true;
         prevention.required = true;
 
-
-        /*
-         * Change Q2 based on Q1.
-         */
-
         if (selected.value === "yes") {
-
-            q2Text.textContent =
-                "Why do you do it?";
-
+            q2Text.textContent = "Why do you do it?";
         } else {
-
-            q2Text.textContent =
-                "Why do you think people do it?";
-
+            q2Text.textContent = "Why do you think people do it?";
         }
-
-
-        /*
-         * Reveal submit button.
-         */
-
         submitRow.classList.add("visible");
-
     }
 
+    litterYes.addEventListener("change", updateQuestions);
+    litterNo.addEventListener("change", updateQuestions);
 
-    /*
-     * Both buttons explicitly listen for changes.
-     */
+    /* Submit Form to ntfy */
+    surveyForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
 
-    litterYes.addEventListener(
-        "change",
-        updateQuestions
-    );
+        if (state !== "survey") return;
 
-    litterNo.addEventListener(
-        "change",
-        updateQuestions
-    );
-
-
-    /*
-     * =====================================================
-     * SUBMIT
-     * =====================================================
-     */
-
-    surveyForm.addEventListener(
-        "submit",
-        async function(event) {
-
-            event.preventDefault();
-
-
-            if (state !== "survey") {
-                return;
-            }
-
-
-            /*
-             * Check localStorage again.
-             */
-
-            if (localStorage.getItem(STORAGE_KEY)) {
-
-                showThanks(
-                    "You have already completed this survey. Thank you!"
-                );
-
-                return;
-            }
-
-
-            /*
-             * Make sure webhook exists.
-             */
-
-            if (
-                !DISCORD_WEBHOOK_URL ||
-                DISCORD_WEBHOOK_URL ===
-                "PUT_YOUR_NEW_DISCORD_WEBHOOK_HERE"
-            ) {
-
-                alert(
-                    "The Discord webhook has not been configured."
-                );
-
-                return;
-            }
-
-
-            /*
-             * Get Q1 answer.
-             */
-
-            const selected =
-                document.querySelector(
-                    'input[name="litter"]:checked'
-                );
-
-
-            if (!selected) {
-
-                alert(
-                    "Please select Yes or No."
-                );
-
-                return;
-            }
-
-
-            /*
-             * Get text answers.
-             */
-
-            const reasonResponse =
-                reason.value.trim();
-
-            const preventionResponse =
-                prevention.value.trim();
-
-
-            /*
-             * Validate text answers.
-             */
-
-            if (!reasonResponse) {
-
-                alert(
-                    "Please answer question 2."
-                );
-
-                reason.focus();
-
-                return;
-            }
-
-
-            if (!preventionResponse) {
-
-                alert(
-                    "Please answer question 3."
-                );
-
-                prevention.focus();
-
-                return;
-            }
-
-
-            /*
-             * Determine Q2 question text.
-             */
-
-            const reasonQuestion =
-                selected.value === "yes"
-                    ? "Why do you do it?"
-                    : "Why do you think people do it?";
-
-
-            /*
-             * Discord payload.
-             */
-
-            const payload = {
-
-                username: "ANI Ocean Survey",
-
-                embeds: [
-
-                    {
-                        title:
-                            "🌊 New Ocean Survey Submission",
-
-                        color:
-                            0x5bc0be,
-
-                        fields: [
-
-                            {
-                                name:
-                                    "Do you litter in the ocean?",
-
-                                value:
-                                    selected.value === "yes"
-                                        ? "Yes"
-                                        : "No",
-
-                                inline:
-                                    false
-                            },
-
-                            {
-                                name:
-                                    reasonQuestion,
-
-                                value:
-                                    reasonResponse || "—",
-
-                                inline:
-                                    false
-                            },
-
-                            {
-                                name:
-                                    "How could we prevent it from happening?",
-
-                                value:
-                                    preventionResponse || "—",
-
-                                inline:
-                                    false
-                            }
-
-                        ],
-
-                        footer: {
-                            text:
-                                "Sent anonymously · ANI Exhibition Project"
-                        }
-
-                    }
-
-                ]
-
-            };
-
-
-            /*
-             * Disable button while sending.
-             */
-
-            submitBtn.disabled = true;
-
-            submitBtn.textContent =
-                "Sending...";
-
-
-            try {
-
-                const response =
-                    await fetch(
-                        DISCORD_WEBHOOK_URL,
-                        {
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify(payload)
-                        }
-                    );
-
-
-                /*
-                 * Discord webhooks normally return
-                 * HTTP 204 when successful.
-                 */
-
-                if (
-                    response.ok ||
-                    response.status === 204
-                ) {
-
-                    localStorage.setItem(
-                        STORAGE_KEY,
-                        "true"
-                    );
-
-                    showThanks(
-                        "Thank you! Your response has been recorded anonymously."
-                    );
-
-                } else {
-
-                    console.error(
-                        "Discord returned:",
-                        response.status
-                    );
-
-                    alert(
-                        "Submission failed. Please try again."
-                    );
-
-                }
-
-            } catch (error) {
-
-                console.error(
-                    "Submission error:",
-                    error
-                );
-
-                alert(
-                    "An error occurred while sending the survey. Please check your internet connection and try again."
-                );
-
-            } finally {
-
-                submitBtn.disabled = false;
-
-                submitBtn.textContent =
-                    "Submit";
-
-            }
-
+        if (localStorage.getItem(STORAGE_KEY)) {
+            showThanks("You have already completed this survey. Thank you!");
+            return;
         }
-    );
 
+        if (!NTFY_TOPIC_URL || NTFY_TOPIC_URL.includes("PUT_YOUR_UNIQUE_TOPIC_NAME_HERE")) {
+            alert("The ntfy URL has not been configured. Please update the script.");
+            return;
+        }
+
+        const selected = document.querySelector('input[name="litter"]:checked');
+        if (!selected) {
+            alert("Please select Yes or No.");
+            return;
+        }
+
+        const reasonResponse = reason.value.trim();
+        const preventionResponse = prevention.value.trim();
+
+        if (!reasonResponse) {
+            alert("Please answer question 2.");
+            reason.focus();
+            return;
+        }
+
+        if (!preventionResponse) {
+            alert("Please answer question 3.");
+            prevention.focus();
+            return;
+        }
+
+        const reasonQuestion = selected.value === "yes" 
+            ? "Why do you do it?" 
+            : "Why do you think people do it?";
+
+        /* Format text message for ntfy */
+        const messageBody = 
+`Do you litter in the ocean?: ${selected.value === "yes" ? "Yes" : "No"}
+
+${reasonQuestion}
+${reasonResponse}
+
+How could we prevent it from happening?
+${preventionResponse}`;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+
+        try {
+            const response = await fetch(NTFY_TOPIC_URL, {
+                method: "POST",
+                body: messageBody,
+                headers: {
+                    "Title": "🌊 New Ocean Survey Submission",
+                    "Tags": "ocean,survey,clipboard"
+                }
+            });
+
+            if (response.ok) {
+                localStorage.setItem(STORAGE_KEY, "true");
+                showThanks("Thank you! Your response has been recorded anonymously.");
+            } else {
+                console.error("ntfy returned:", response.status);
+                alert("Submission failed. Please try again.");
+            }
+        } catch (error) {
+            console.error("Submission error:", error);
+            alert("An error occurred while sending the survey. Please check your internet connection and try again.");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit";
+        }
+    });
 </script>
 
 </body>
