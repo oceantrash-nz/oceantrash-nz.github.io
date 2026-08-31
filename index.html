@@ -76,7 +76,6 @@
            BASE
         ============================================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { font-size: 16px; }
 
         body {
@@ -95,35 +94,17 @@
         .page { width: 100%; max-width: 640px; }
 
         header { text-align: center; margin-bottom: 32px; }
-
-        .drop-icon {
-            width: 36px; height: 36px; margin: 0 auto 16px;
-            color: var(--accent); display: block;
-        }
-
-        .eyebrow {
-            font-size: 11px; font-weight: 600; letter-spacing: .3em;
-            text-transform: uppercase; color: var(--muted); margin-bottom: 16px;
-        }
-
-        h1 {
-            font-size: 2.4rem; line-height: 1.1; font-weight: 600;
-            letter-spacing: -.03em; margin-bottom: 12px; color: var(--text);
-        }
-
-        .subtitle {
-            font-size: .95rem; font-weight: 400; color: var(--muted);
-            max-width: 460px; margin: 0 auto; line-height: 1.6;
-        }
+        .drop-icon { width: 36px; height: 36px; margin: 0 auto 16px; color: var(--accent); display: block; }
+        .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+        h1 { font-size: 2.4rem; line-height: 1.1; font-weight: 600; letter-spacing: -.03em; margin-bottom: 12px; color: var(--text); }
+        .subtitle { font-size: .95rem; font-weight: 400; color: var(--muted); max-width: 460px; margin: 0 auto; line-height: 1.6; }
 
         .theme-bar { margin-top: 22px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-
         .theme-btn {
             padding: 8px 14px; border: 1px solid var(--border);
             border-radius: 999px; background: transparent; color: var(--muted);
-            font-family: inherit; font-size: 11px; font-weight: 600;
-            letter-spacing: .05em; text-transform: uppercase; cursor: pointer;
-            transition: background .2s, border-color .2s, color .2s;
+            font-size: 11px; font-weight: 600; letter-spacing: .05em;
+            text-transform: uppercase; cursor: pointer;
         }
         .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
         .theme-btn.active { background: var(--accent); border-color: var(--accent); color: var(--btn-text); }
@@ -131,14 +112,7 @@
         /* ============================================================
            CARD
         ============================================================ */
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            box-shadow: var(--card-shadow);
-            overflow: hidden;
-        }
-
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--card-shadow); overflow: hidden; }
         .panel { padding: 40px; }
 
         /* ============================================================
@@ -158,18 +132,14 @@
             display: inline-block; padding: 14px 30px;
             background: var(--accent); color: var(--btn-text);
             border: 1px solid var(--accent);
-            font-family: inherit; font-size: 14px; font-weight: 700;
-            cursor: pointer; border-radius: var(--radius-btn);
-            transition: background .2s, transform .1s;
+            font-size: 14px; font-weight: 700; cursor: pointer;
+            border-radius: var(--radius-btn);
         }
         .btn:hover { box-shadow: 0 0 16px var(--accent-soft); }
         .btn:active { transform: translateY(1px); }
         .btn:disabled { opacity: .5; cursor: not-allowed; }
         .btn-block { width: 100%; }
-        .btn-outline {
-            margin-top: 14px; background: transparent; color: var(--muted);
-            border: 1px solid var(--border); font-weight: 600;
-        }
+        .btn-outline { margin-top: 14px; background: transparent; color: var(--muted); border: 1px solid var(--border); font-weight: 600; }
         .btn-outline:hover { border-color: var(--accent); color: var(--accent); box-shadow: none; }
 
         /* ============================================================
@@ -196,34 +166,26 @@
             border-radius: 4px; padding: 2px 7px; margin-right: 10px; vertical-align: 2px;
         }
 
-        /* Options */
         .options { display: block; }
         .options label {
             display: block; min-height: 50px; text-align: center;
             padding: 13px 18px; margin-bottom: 10px;
             border: 1px solid var(--border); border-radius: var(--radius-btn);
-            font-size: 14px; font-weight: 500; cursor: pointer; user-select: none;
-            transition: background .2s, border-color .2s, color .2s;
+            font-size: 14px; cursor: pointer; user-select: none;
         }
         .options label:hover { border-color: var(--accent); color: var(--accent); }
         .options input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-        .options input:checked + label {
-            background: var(--accent); border-color: var(--accent);
-            color: var(--btn-text); font-weight: 700;
-        }
+        .options input:checked + label { background: var(--accent); border-color: var(--accent); color: var(--btn-text); font-weight: 700; }
 
-        /* Textareas */
         textarea {
             width: 100%; min-height: 110px; padding: 13px 15px;
             background: var(--input-bg); border: 1px solid var(--border);
             border-radius: var(--radius-btn); color: var(--text);
-            font-family: inherit; font-size: 14px; line-height: 1.6;
-            resize: vertical;
+            font-size: 14px; line-height: 1.6; resize: vertical;
         }
         textarea::placeholder { color: var(--placeholder); }
         textarea:focus { outline: none; border-color: var(--accent); }
 
-        /* Next reveal */
         .next-wrap { display: none; margin-top: 18px; }
         .next-wrap.visible { display: block; }
         .next-btn { width: 100%; }
@@ -295,7 +257,6 @@
                     <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
                 </div>
 
-                <!-- Step 1 / Q1 -->
                 <div class="step" id="step-1">
                     <div class="question">
                         <p class="q-label"><span class="q-num">Q1</span>Do you litter in the ocean?</p>
@@ -307,7 +268,6 @@
                     <div class="next-wrap" id="next-1"><button class="btn btn-block next-btn" type="button" data-goto="2">Next &rarr;</button></div>
                 </div>
 
-                <!-- Step 2 / Q2 -->
                 <div class="step" id="step-2">
                     <div class="question">
                         <p class="q-label"><span class="q-num">Q2</span><span id="q2-text">Why do you do it?</span></p>
@@ -316,7 +276,6 @@
                     <div class="next-wrap" id="next-2"><button class="btn btn-block next-btn" type="button" data-goto="3">Next &rarr;</button></div>
                 </div>
 
-                <!-- Step 3 / Q3 -->
                 <div class="step" id="step-3">
                     <div class="question">
                         <p class="q-label"><span class="q-num">Q3</span>How could we prevent it from happening?</p>
@@ -325,7 +284,6 @@
                     <div class="next-wrap" id="next-3"><button class="btn btn-block next-btn" type="button" data-goto="4">Next &rarr;</button></div>
                 </div>
 
-                <!-- Step 4 / Q4 -->
                 <div class="step" id="step-4">
                     <div class="question">
                         <p class="q-label"><span class="q-num">Q4</span>Do you recycle at home?</p>
@@ -338,7 +296,6 @@
                     <div class="next-wrap" id="next-4"><button class="btn btn-block next-btn" type="button" data-goto="5">Next &rarr;</button></div>
                 </div>
 
-                <!-- Step 5 / Q5 + Submit -->
                 <div class="step" id="step-5">
                     <div class="question">
                         <p class="q-label"><span class="q-num">Q5</span>Do you use reusable bottles or bags to reduce plastic waste?</p>
@@ -368,13 +325,11 @@
 </main>
 
 <script>
-    /* Legacy-friendly helpers: no forEach, no arrow fns, no template literals */
-
+    /* ============================================================
+       Legacy-safe JS: no forEach, no arrows, no template literals
+    ============================================================ */
     var VALID = ["ocean", "light", "mono", "soft", "brutalist", "glass"];
-
-    function get(id) {
-        return document.getElementById(id);
-    }
+    function get(id) { return document.getElementById(id); }
 
     /* ============ THEME ============ */
     function applyTheme(t) {
@@ -382,30 +337,20 @@
         document.documentElement.setAttribute("data-theme", t);
         document.body.setAttribute("data-theme", t);
         try { localStorage.setItem("ani_ocean_survey_theme", t); } catch (e) {}
-
-        var btns = document.querySelectorAll(".theme-btn");
-        for (var i = 0; i < btns.length; i++) {
-            if (btns[i].getAttribute("data-theme-target") === t) {
-                btns[i].className = "theme-btn active";
-            } else {
-                btns[i].className = "theme-btn";
-            }
+        var bs = document.querySelectorAll(".theme-btn");
+        for (var i = 0; i < bs.length; i++) {
+            bs[i].className = (bs[i].getAttribute("data-theme-target") === t) ? "theme-btn active" : "theme-btn";
         }
     }
 
-    /* bind theme buttons */
-    var tb = document.getElementById("theme-bar");
+    var tb = get("theme-bar");
     if (tb) {
         var btns = tb.getElementsByTagName("button");
         for (var bi = 0; bi < btns.length; bi++) {
-            btns[bi].onclick = function () {
-                applyTheme(this.getAttribute("data-theme-target"));
-                return false;
-            };
+            btns[bi].onclick = function () { applyTheme(this.getAttribute("data-theme-target")); return false; };
         }
     }
 
-    /* load saved theme, default ocean */
     var initial = "ocean";
     try { initial = localStorage.getItem("ani_ocean_survey_theme") || "ocean"; } catch (e) {}
     applyTheme(initial);
@@ -445,22 +390,20 @@
         var steps = document.querySelectorAll(".step");
         for (var i = 0; i < steps.length; i++) steps[i].className = "step";
         get("step-" + s).className = "step active";
-
         if (s === 2) {
             var sel = document.querySelector('input[name="litter"]:checked');
-            q2Text.textContent = (sel && sel.value === "yes")
-                ? "Why do you do it?"
-                : "Why do you think people do it?";
+            q2Text.textContent = (sel && sel.value === "yes") ? "Why do you do it?" : "Why do you think people do it?";
         }
-
         var pct = (s === TOTAL) ? 100 : Math.round(((s - 1) / TOTAL) * 100);
         progressFill.style.width = pct + "%";
         progressText.textContent = "Step " + s + " of " + TOTAL;
         progressPercent.textContent = pct + "%";
     }
 
-    /* ============ OPEN SURVEY ============ */
+    /* ============ OPEN SURVEY — 关键修复：设置 state = "survey" ============ */
     understandBtn.onclick = function () {
+        if (state !== "confirm") return;
+        state = "survey";   /* ← 这行之前漏了，导致最后一题 submit 失效 */
         confirmPanel.className = "panel confirm-panel exit";
         setTimeout(function () {
             confirmPanel.style.display = "none";
@@ -469,51 +412,33 @@
         }, 350);
     };
 
-    /* ============ REVEAL next on answer ============ */
-    document.querySelectorAll('input[name="litter"]').forEach = null; /* safety no-op if unsupported */
-    /* use loop instead */
+    /* ============ REVEAL next ============ */
     function bindRadios(name, cb) {
         var rs = document.querySelectorAll('input[name="' + name + '"]');
         for (var i = 0; i < rs.length; i++) rs[i].onchange = cb;
     }
 
     bindRadios("litter", function () { get("next-1").className = "next-wrap visible"; });
-
-    get("reason").oninput = function () {
-        if (this.value.trim()) get("next-2").className = "next-wrap visible";
-    };
-    get("prevention").oninput = function () {
-        if (this.value.trim()) get("next-3").className = "next-wrap visible";
-    };
-
-    bindRadios("recycle", function () {
-        if (document.querySelector('input[name="recycle"]:checked')) get("next-4").className = "next-wrap visible";
-    });
-    bindRadios("reusable", function () {
-        if (document.querySelector('input[name="reusable"]:checked')) get("next-5").className = "next-wrap visible";
-    });
+    get("reason").oninput = function () { if (this.value.trim()) get("next-2").className = "next-wrap visible"; };
+    get("prevention").oninput = function () { if (this.value.trim()) get("next-3").className = "next-wrap visible"; };
+    bindRadios("recycle", function () { if (document.querySelector('input[name="recycle"]:checked')) get("next-4").className = "next-wrap visible"; });
+    bindRadios("reusable", function () { if (document.querySelector('input[name="reusable"]:checked')) get("next-5").className = "next-wrap visible"; });
 
     /* ============ NEXT NAV ============ */
-    var navBtns = document.querySelectorAll(".next-btn[data-goto]");
-    for (var ni = 0; ni < navBtns.length; ni++) {
-        navBtns[ni].onclick = function () {
-            showStep(parseInt(this.getAttribute("data-goto"), 10));
-            return false;
-        };
+    var navs = document.querySelectorAll(".next-btn[data-goto]");
+    for (var ni = 0; ni < navs.length; ni++) {
+        navs[ni].onclick = function () { showStep(parseInt(this.getAttribute("data-goto"), 10)); return false; };
     }
 
     /* ============ AGAIN ============ */
     againBtn.onclick = function () {
         try { localStorage.removeItem("ani_ocean_survey_completed"); } catch (e) {}
-
         var rc = document.querySelectorAll('input[type="radio"]');
         for (var i = 0; i < rc.length; i++) rc[i].checked = false;
         get("reason").value = "";
         get("prevention").value = "";
-
-        var wraps = document.querySelectorAll(".next-wrap");
-        for (var w = 0; w < wraps.length; w++) wraps[w].className = "next-wrap";
-
+        var ws = document.querySelectorAll(".next-wrap");
+        for (var w = 0; w < ws.length; w++) ws[w].className = "next-wrap";
         thanksPanel.style.display = "none";
         confirmPanel.style.display = "block";
         confirmPanel.className = "panel confirm-panel";
@@ -523,17 +448,17 @@
 
     /* ============ SUBMIT ============ */
     get("final-submit-btn").onclick = function () {
-        if (state !== "survey") return;
-
+        if (state !== "survey") {
+            alert("Please start from the beginning.");
+            return;
+        }
         if (localStorage.getItem("ani_ocean_survey_completed")) {
             showThanks("You have already completed this survey. Thank you!", true);
             return;
         }
-
         var lit = document.querySelector('input[name="litter"]:checked');
         var rec = document.querySelector('input[name="recycle"]:checked');
         var reu = document.querySelector('input[name="reusable"]:checked');
-
         var litL = lit.value === "yes" ? "Yes" : "No";
         var recL = rec.value.charAt(0).toUpperCase() + rec.value.slice(1);
         var reuL = reu.value.charAt(0).toUpperCase() + reu.value.slice(1);
@@ -553,7 +478,6 @@
         xhr.open("POST", "https://ntfy.sh/ANI-exhibition-project-red-bro-cookie-security", true);
         xhr.setRequestHeader("Title", "New Ocean Survey Submission");
         xhr.setRequestHeader("Tags", "wave,ocean,survey");
-
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status >= 200 && xhr.status < 300) {
