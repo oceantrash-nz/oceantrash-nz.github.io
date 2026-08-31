@@ -114,6 +114,7 @@
         ============================================================ */
         .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--card-shadow); overflow: hidden; }
         .panel { padding: 40px; }
+        .panel-stack { position: relative; }
 
         /* ============================================================
            CONFIRM
@@ -370,18 +371,12 @@
     var progressFill = get("progress-fill");
     var q2Text = get("q2-text");
 
-    /* ============ THANKS ============ */
-    function showThanks(msg, noAgain) {
-        state = "thanks";
-        confirmPanel.style.display = "none";
-        surveyPanel.style.display = "none";
-        get("thanks-text").textContent = msg;
-        thanksPanel.style.display = "block";
-        againBtn.style.display = noAgain ? "none" : "inline-block";
-    }
-
-    if (localStorage.getItem("ani_ocean_survey_completed")) {
-        showThanks("You have already completed this survey. Thank you!", true);
+    /* ============ PROGRESS ============ */
+    function updateProgress(s) {
+        var pct = (s === TOTAL) ? 100 : Math.round(((s - 1) / TOTAL) * 100);
+        progressFill.style.width = pct + "%";
+        progressText.textContent = "Step " + s + " of " + TOTAL;
+        progressPercent.textContent = pct + "%";
     }
 
     /* ============ STEP ============ */
@@ -394,18 +389,59 @@
             var sel = document.querySelector('input[name="litter"]:checked');
             q2Text.textContent = (sel && sel.value === "yes") ? "Why do you do it?" : "Why do you think people do it?";
         }
-        var pct = (s === TOTAL) ? 100 : Math.round(((s - 1) / TOTAL) * 100);
-        progressFill.style.width = pct + "%";
-        progressText.textContent = "Step " + s + " of " + TOTAL;
-        progressPercent.textContent = pct + "%";
+        updateProgress(s);
     }
 
-    /* ============ OPEN SURVEY — 关键修复：设置 state = "survey" ============ */
+    /* ============ THANKS ============ */
+    function showThanks(msg, noAgain) {
+        state = "thanks";
+        if (confirmPanel) confirmPanel.style.display = "none";
+        if (surveyPanel) surveyPanel.style.display = "none";
+        get("thanks-text").textContent = msg;
+        thanksPanel.style.display = "block";
+        againBtn.style.display = noAgain ? "none" : "inline-block";
+    }
+
+    if (localStorage.getItem("ani_ocean_survey_completed")) {
+        showThanks("You have already completed this survey. Thank you!", true);
+    }
+
+    /* ============ FULL RESET (for "take again") ============ */
+    function resetAll() {
+        state = "confirm";
+        current = 1;
+
+        var radios = document.querySelectorAll('input[type="radio"]');
+        for (var i = 0; i < radios.length; i++) radios[i].checked = false;
+        if (get("reason")) get("reason").value = "";
+        if (get("prevention")) get("prevention").value = "";
+
+        var ws = document.querySelectorAll(".next-wrap");
+        for (var w = 0; w < ws.length; w++) ws[w].className = "next-wrap";
+
+        var steps = document.querySelectorAll(".step");
+        for (var s2 = 0; s2 < steps.length; s2++) steps[s2].className = "step";
+
+        progressFill.style.width = "0%";
+        progressText.textContent = "Step 1 of " + TOTAL;
+        progressPercent.textContent = "0%";
+
+        surveyPanel.className = "panel survey-panel";
+        thanksPanel.style.display = "none";
+        confirmPanel.style.display = "block";
+        confirmPanel.className = "panel confirm-panel";
+        clearTimeout(enterTimer);
+        window.scrollTo(0, 0);
+    }
+
+    var enterTimer = null;
+
+    /* ============ OPEN SURVEY ============ */
     understandBtn.onclick = function () {
         if (state !== "confirm") return;
-        state = "survey";   /* ← 这行之前漏了，导致最后一题 submit 失效 */
+        state = "survey";
         confirmPanel.className = "panel confirm-panel exit";
-        setTimeout(function () {
+        enterTimer = setTimeout(function () {
             confirmPanel.style.display = "none";
             surveyPanel.className = "panel survey-panel active";
             showStep(1);
@@ -433,17 +469,7 @@
     /* ============ AGAIN ============ */
     againBtn.onclick = function () {
         try { localStorage.removeItem("ani_ocean_survey_completed"); } catch (e) {}
-        var rc = document.querySelectorAll('input[type="radio"]');
-        for (var i = 0; i < rc.length; i++) rc[i].checked = false;
-        get("reason").value = "";
-        get("prevention").value = "";
-        var ws = document.querySelectorAll(".next-wrap");
-        for (var w = 0; w < ws.length; w++) ws[w].className = "next-wrap";
-        thanksPanel.style.display = "none";
-        confirmPanel.style.display = "block";
-        confirmPanel.className = "panel confirm-panel";
-        state = "confirm";
-        window.scrollTo(0, 0);
+        resetAll();
     };
 
     /* ============ SUBMIT ============ */
@@ -456,9 +482,16 @@
             showThanks("You have already completed this survey. Thank you!", true);
             return;
         }
+
         var lit = document.querySelector('input[name="litter"]:checked');
         var rec = document.querySelector('input[name="recycle"]:checked');
         var reu = document.querySelector('input[name="reusable"]:checked');
+
+        if (!lit || !rec || !reu) {
+            alert("Please answer all questions.");
+            return;
+        }
+
         var litL = lit.value === "yes" ? "Yes" : "No";
         var recL = rec.value.charAt(0).toUpperCase() + rec.value.slice(1);
         var reuL = reu.value.charAt(0).toUpperCase() + reu.value.slice(1);
