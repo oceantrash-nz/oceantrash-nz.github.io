@@ -503,7 +503,7 @@
                     <div class="question">
                         <p class="q-label">
                             <span class="q-num">Q1</span>
-                            Do you litter in the ocean?
+                            Have you ever littered in the sea?
                         </p>
                         <div class="options">
                             <input type="radio" name="litter" value="yes" id="litter-yes" required>
@@ -519,7 +519,7 @@
                         <div class="conditional-inner">
                             <p class="q-label">
                                 <span class="q-num">Q2</span>
-                                <span id="q2-text">Why do you do it?</span>
+                                <span id="q2-text">Why did you do it?</span>
                             </p>
                             <textarea id="reason" placeholder="Share your thoughts..." disabled></textarea>
                         </div>
@@ -631,9 +631,9 @@
         prevention.required = true;
 
         if (selected.value === "yes") {
-            q2Text.textContent = "Why do you do it?";
+            q2Text.textContent = "Why did you do it?";
         } else {
-            q2Text.textContent = "Why do you think people do it?";
+            q2Text.textContent = "Why do you think other people do it?";
         }
         submitRow.classList.add("visible");
     }
@@ -707,14 +707,14 @@ ${preventionResponse}`;
 
             if (response.ok) {
                 localStorage.setItem(STORAGE_KEY, "true");
-                showThanks("Thank you! Your response has been recorded anonymously.");
+                showThanks("Thank you so much! Your response has been recorded anonymously.");
             } else {
                 console.error("ntfy returned:", response.status);
-                alert("Submission failed. Please try again.");
+                alert("Sorry, we couldn't submit it. Please try again soon.");
             }
         } catch (error) {
             console.error("Submission error:", error);
-            alert("An error occurred while sending the survey. Please check your internet connection and try again.");
+            alert("Sorry, we couldn't submit it. Do you still have internet?");
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = "Submit";
