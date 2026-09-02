@@ -1,85 +1,34 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="ocean">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ocean Conservation Survey — ANI Exhibition</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* ============================================================
-           THEMES
-        ============================================================ */
         :root {
-            --bg-top: #1e2a4a; --bg-bottom: #0a0f1e;
+            --bg-top: #1e2a4a;
+            --bg-bottom: #0a0f1e;
             --surface: rgba(19, 28, 51, 0.85);
-            --text: #eaf0fa; --muted: #8b9cc4;
-            --border: rgba(139,156,196,0.18);
-            --accent: #5bc0be; --accent-soft: rgba(91,192,190,0.15);
-            --btn-text: #0a1520; --input-bg: rgba(10,15,30,0.6);
-            --placeholder: #5a6b90;
-            --card-shadow: 0 20px 60px rgba(0,0,0,0.45);
-            --track: rgba(139,156,196,0.15);
-            --radius: 12px; --radius-btn: 8px; --border-w: 1px; --blur: 8px;
+            --text: #eaf0fa;
+            --muted: #8b9cc4;
+            --border: rgba(139, 156, 196, 0.18);
+            --accent: #5bc0be;
+            --accent-soft: rgba(91, 192, 190, 0.15);
         }
 
-        [data-theme="light"] {
-            --bg-top: #dcebf5; --bg-bottom: #f7fbfd;
-            --surface: #ffffff; --text: #22303f; --muted: #6b7f96;
-            --border: rgba(34,48,63,0.14); --accent: #ff6b5b;
-            --accent-soft: rgba(255,107,91,0.12); --btn-text: #ffffff;
-            --input-bg: rgba(236,244,250,0.8); --placeholder: #9fb0c2;
-            --card-shadow: 0 20px 50px rgba(34,48,63,0.12);
-            --track: rgba(34,48,63,0.1);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        [data-theme="mono"] {
-            --bg-top: #f2f2f2; --bg-bottom: #e6e6e6;
-            --surface: #ffffff; --text: #111111; --muted: #666666;
-            --border: #b0b0b0; --accent: #111111; --accent-soft: #e8e8e8;
-            --btn-text: #ffffff; --input-bg: #f5f5f5; --placeholder: #999999;
-            --card-shadow: 0 2px 0 rgba(0,0,0,0.08); --track: #dcdcdc; --blur: 0px;
-        }
-
-        [data-theme="soft"] {
-            --bg-top: #dfe9f3; --bg-bottom: #c3ceda;
-            --surface: #deeaf7; --text: #2c3a4f; --muted: #6d7f96;
-            --border: rgba(44,58,79,0.08); --accent: #4aa8a8;
-            --accent-soft: rgba(74,168,168,0.16); --btn-text: #ffffff;
-            --input-bg: rgba(230,240,250,0.7); --placeholder: #9aa9bb;
-            --card-shadow: 12px 12px 24px rgba(150,170,190,0.35), -12px -12px 24px rgba(255,255,255,0.7);
-            --track: rgba(44,58,79,0.12);
-            --radius: 18px; --radius-btn: 14px; --border-w: 0px;
-        }
-
-        [data-theme="brutalist"] {
-            --bg-top: #fffdf5; --bg-bottom: #fffdf5;
-            --surface: #ffffff; --text: #111111; --muted: #555555;
-            --border: #111111; --accent: #ff3b2f; --accent-soft: #ffeae8;
-            --btn-text: #ffffff; --input-bg: #ffffff; --placeholder: #999999;
-            --card-shadow: 6px 6px 0 #111111; --track: #111111;
-            --radius: 0px; --radius-btn: 0px; --border-w: 2px; --blur: 0px;
-        }
-
-        [data-theme="glass"] {
-            --bg-top: #dfe9f7; --bg-bottom: #b8cbe4;
-            --surface: rgba(255,255,255,0.45);
-            --text: #1d2b45; --muted: #55688a;
-            --border: rgba(255,255,255,0.6);
-            --accent: #2980c2; --accent-soft: rgba(41,128,194,0.14);
-            --btn-text: #ffffff; --input-bg: rgba(255,255,255,0.5);
-            --placeholder: #7d90b0;
-            --card-shadow: 0 20px 50px rgba(70,100,150,0.25), inset 0 1px 0 rgba(255,255,255,0.7);
-            --track: rgba(41,128,194,0.18);
-            --radius: 16px; --radius-btn: 10px; --border-w: 1px; --blur: 14px;
-        }
-
-        /* ============================================================
-           BASE
-        ============================================================ */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { font-size: 16px; }
 
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
             background-attachment: fixed;
             color: var(--text);
@@ -87,129 +36,378 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 48px 24px 40px;
+            padding: 56px 24px 48px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            z-index: 10;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 640px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .drop-icon {
+            width: 38px;
+            height: 38px;
+            margin: 0 auto 20px;
+            color: var(--accent);
+            display: block;
+            filter: drop-shadow(0 0 8px rgba(91, 192, 190, 0.35));
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(2.4rem, 6vw, 3.4rem);
+            font-weight: 600;
+            letter-spacing: -.03em;
+            line-height: 1.06;
+            margin-bottom: 16px;
+            color: #ffffff;
+            text-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--muted);
+            max-width: 460px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .wave-divider {
+            display: block;
+            width: 200px;
+            margin: 36px auto 0;
+            color: var(--accent);
+            opacity: .7;
+        }
+
+        /* Card */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(8px);
+            overflow: hidden;
+        }
+
+        .panel-stack {
+            position: relative;
+        }
+
+        .panel {
+            width: 100%;
+            padding: 48px;
+        }
+
+        /* Confirmation */
+        .confirm-panel {
+            opacity: 1;
+            transform: translateX(0);
+            transition:
+                opacity .35s ease,
+                transform .45s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .confirm-panel.exit {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .confirm-inner {
+            text-align: center;
+        }
+
+        .lock-icon {
+            width: 34px;
+            height: 34px;
+            margin: 0 auto 20px;
+            color: var(--accent);
+            display: block;
+            filter: drop-shadow(0 0 8px rgba(91, 192, 190, 0.35));
+        }
+
+        .confirm-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .confirm-text {
+            font-size: .95rem;
+            line-height: 1.7;
+            color: var(--muted);
+            max-width: 400px;
+            margin: 0 auto 32px;
+        }
+
+        .confirm-note {
+            font-size: 11px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 18px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 15px 32px;
+            background: var(--accent);
+            color: #0a1520;
+            border: 1px solid var(--accent);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: .03em;
+            cursor: pointer;
+            border-radius: 8px;
+            transition:
+                background .2s ease,
+                transform .1s ease,
+                box-shadow .2s ease;
+        }
+
+        .btn:hover {
+            background: #6fd4d2;
+            box-shadow: 0 0 20px rgba(91, 192, 190, 0.35);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* Survey */
+        .survey-panel {
+            display: none;
+        }
+
+        .survey-panel.active {
+            display: block;
+            animation: surveyEnter .5s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        @keyframes surveyEnter {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Questions */
+        .question {
+            padding: 28px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question:first-child {
+            padding-top: 0;
+        }
+
+        .q-label {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 18px;
             line-height: 1.5;
         }
 
-        .page { width: 100%; max-width: 640px; }
-
-        header { text-align: center; margin-bottom: 32px; }
-        .drop-icon { width: 36px; height: 36px; margin: 0 auto 16px; color: var(--accent); display: block; }
-        .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
-        h1 { font-size: 2.4rem; line-height: 1.1; font-weight: 600; letter-spacing: -.03em; margin-bottom: 12px; color: var(--text); }
-        .subtitle { font-size: .95rem; font-weight: 400; color: var(--muted); max-width: 460px; margin: 0 auto; line-height: 1.6; }
-
-        .theme-bar { margin-top: 22px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-        .theme-btn {
-            padding: 8px 14px; border: 1px solid var(--border);
-            border-radius: 999px; background: transparent; color: var(--muted);
-            font-size: 11px; font-weight: 600; letter-spacing: .05em;
-            text-transform: uppercase; cursor: pointer;
-        }
-        .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
-        .theme-btn.active { background: var(--accent); border-color: var(--accent); color: var(--btn-text); }
-
-        /* ============================================================
-           CARD
-        ============================================================ */
-        .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--card-shadow); overflow: hidden; }
-        .panel { padding: 40px; }
-        .panel-stack { position: relative; }
-
-        /* ============================================================
-           CONFIRM
-        ============================================================ */
-        .confirm-inner { text-align: center; }
-        .lock-icon { width: 32px; height: 32px; margin: 0 auto 18px; color: var(--accent); display: block; }
-        .confirm-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 14px; }
-        .confirm-text { font-size: .95rem; line-height: 1.7; color: var(--muted); max-width: 400px; margin: 0 auto 28px; }
-        .confirm-note { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 16px; }
-        .confirm-panel.exit { opacity: 0; transform: translateX(-50px); transition: opacity .35s, transform .45s; }
-
-        /* ============================================================
-           BUTTONS
-        ============================================================ */
-        .btn {
-            display: inline-block; padding: 14px 30px;
-            background: var(--accent); color: var(--btn-text);
-            border: 1px solid var(--accent);
-            font-size: 14px; font-weight: 700; cursor: pointer;
-            border-radius: var(--radius-btn);
-        }
-        .btn:hover { box-shadow: 0 0 16px var(--accent-soft); }
-        .btn:active { transform: translateY(1px); }
-        .btn:disabled { opacity: .5; cursor: not-allowed; }
-        .btn-block { width: 100%; }
-        .btn-outline { margin-top: 14px; background: transparent; color: var(--muted); border: 1px solid var(--border); font-weight: 600; }
-        .btn-outline:hover { border-color: var(--accent); color: var(--accent); box-shadow: none; }
-
-        /* ============================================================
-           SURVEY
-        ============================================================ */
-        .survey-panel { display: none; }
-        .survey-panel.active { display: block; }
-
-        .progress-row { margin-bottom: 26px; }
-        .progress-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-        .progress-text { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
-        .progress-track { height: 4px; background: var(--track); border-radius: 4px; overflow: hidden; }
-        .progress-fill { height: 100%; width: 0%; background: var(--accent); border-radius: 4px; transition: width .5s; }
-
-        .step { display: none; }
-        .step.active { display: block; }
-
-        .question { padding: 4px 0 22px; }
-        .q-label { font-size: 16px; font-weight: 600; margin-bottom: 20px; line-height: 1.5; }
         .q-num {
-            display: inline-block; font-size: 10px; font-weight: 600;
-            letter-spacing: .1em; color: var(--accent);
-            border: 1px solid var(--border); background: var(--accent-soft);
-            border-radius: 4px; padding: 2px 7px; margin-right: 10px; vertical-align: 2px;
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .12em;
+            color: var(--accent);
+            border: 1px solid rgba(91, 192, 190, 0.35);
+            background: var(--accent-soft);
+            border-radius: 4px;
+            padding: 2px 7px;
+            margin-right: 10px;
         }
 
-        .options { display: block; }
+        /* Inputs & Grid Options */
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .options-stacked {
+            grid-template-columns: 1fr;
+        }
+
+        .options input[type="radio"] {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
         .options label {
-            display: block; min-height: 50px; text-align: center;
-            padding: 13px 18px; margin-bottom: 10px;
-            border: 1px solid var(--border); border-radius: var(--radius-btn);
-            font-size: 14px; cursor: pointer; user-select: none;
+            min-height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 20px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            user-select: none;
+            background: rgba(255, 255, 255, 0.02);
+            transition:
+                background .2s ease,
+                border-color .2s ease,
+                color .2s ease,
+                box-shadow .2s ease,
+                transform .1s ease;
         }
-        .options label:hover { border-color: var(--accent); color: var(--accent); }
-        .options input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-        .options input:checked + label { background: var(--accent); border-color: var(--accent); color: var(--btn-text); font-weight: 700; }
 
+        .options label:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .options label:active {
+            transform: scale(.98);
+        }
+
+        .options input[type="radio"]:checked + label {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #0a1520;
+            font-weight: 700;
+            box-shadow: 0 0 16px rgba(91, 192, 190, 0.3);
+        }
+
+        .options input[type="radio"]:focus-visible + label {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        /* Textareas */
         textarea {
-            width: 100%; min-height: 110px; padding: 13px 15px;
-            background: var(--input-bg); border: 1px solid var(--border);
-            border-radius: var(--radius-btn); color: var(--text);
-            font-size: 14px; line-height: 1.6; resize: vertical;
+            width: 100%;
+            min-height: 110px;
+            padding: 14px 16px;
+            background: rgba(10, 15, 30, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease;
         }
-        textarea::placeholder { color: var(--placeholder); }
-        textarea:focus { outline: none; border-color: var(--accent); }
 
-        .next-wrap { display: none; margin-top: 18px; }
-        .next-wrap.visible { display: block; }
-        .next-btn { width: 100%; }
+        textarea::placeholder {
+            color: #5a6b90;
+        }
 
-        /* ============================================================
-           THANKS
-        ============================================================ */
-        .thanks-panel { display: none; text-align: center; }
-        .check-icon { width: 38px; height: 38px; margin: 0 auto 18px; color: var(--accent); display: block; }
-        .thanks-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 12px; }
-        .thanks-text { font-size: .95rem; line-height: 1.7; color: var(--muted); max-width: 360px; margin: 0 auto 22px; }
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(91, 192, 190, 0.15);
+        }
 
-        /* ============================================================
-           MOBILE
-        ============================================================ */
+        /* Submit */
+        .submit-row {
+            margin-top: 32px;
+        }
+
+        /* Thanks */
+        .thanks-panel {
+            display: none;
+            text-align: center;
+        }
+
+        .check-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 20px;
+            color: var(--accent);
+            display: block;
+            filter: drop-shadow(0 0 8px rgba(91, 192, 190, 0.35));
+        }
+
+        .thanks-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .thanks-text {
+            font-size: .95rem;
+            line-height: 1.7;
+            color: var(--muted);
+            max-width: 380px;
+            margin: 0 auto;
+        }
+
+        /* Mobile */
         @media (max-width: 560px) {
-            body { padding: 32px 16px 28px; }
-            .panel { padding: 26px 20px; }
-            h1 { font-size: 2rem; }
+            body {
+                padding: 40px 16px 32px;
+            }
+
+            .panel {
+                padding: 32px 24px;
+            }
+
+            .options {
+                grid-template-columns: 1fr;
+            }
+
+            .options label {
+                padding: 13px 16px;
+            }
         }
     </style>
 </head>
-<body data-theme="ocean">
+<body>
 
 <main class="page">
     <header>
@@ -217,23 +415,27 @@
             <path d="M12 2.5C12 2.5 5 10.5 5 15a7 7 0 0 0 14 0c0-4.5-7-12.5-7-12.5z"/>
             <path d="M9 14.5a3.5 3.5 0 0 0 3 3.5" stroke-linecap="round"/>
         </svg>
-        <div class="eyebrow">ANI Exhibition Project</div>
-        <h1>Ocean Conservation</h1>
-        <p class="subtitle">A short anonymous survey about the everyday habits that affect our oceans.</p>
 
-        <div class="theme-bar" id="theme-bar">
-            <button class="theme-btn active" type="button" data-theme-target="ocean">Ocean</button>
-            <button class="theme-btn" type="button" data-theme-target="light">Light</button>
-            <button class="theme-btn" type="button" data-theme-target="mono">Mono</button>
-            <button class="theme-btn" type="button" data-theme-target="soft">Soft</button>
-            <button class="theme-btn" type="button" data-theme-target="brutalist">Brutal</button>
-            <button class="theme-btn" type="button" data-theme-target="glass">Glass</button>
+        <div class="eyebrow">
+            ANI Exhibition Project
         </div>
+
+        <h1>Ocean Conservation</h1>
+
+        <p class="subtitle">
+            A short anonymous survey about the everyday habits that affect our oceans.
+        </p>
+
+        <svg class="wave-divider" viewBox="0 0 320 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M0 12 C 40 4, 80 20, 120 12 S 200 4, 240 12 S 300 20, 320 12" stroke-linecap="round"/>
+        </svg>
     </header>
 
     <div class="card">
         <div class="panel-stack">
-            <!-- CONFIRM -->
+            <!-- =========================
+                 CONFIRMATION
+            ========================== -->
             <section class="panel confirm-panel" id="confirm-panel">
                 <div class="confirm-inner">
                     <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -242,76 +444,111 @@
                         <circle cx="12" cy="15.5" r="1.2" fill="currentColor" stroke="none"/>
                     </svg>
                     <p class="confirm-title">Before you begin</p>
-                    <p class="confirm-text">This data will be sent to Students at Auckland Normal Intermediate, and the data being sent will be anonymous.</p>
-                    <button class="btn" type="button" id="understand-btn">Yes, I understand</button>
-                    <p class="confirm-note">Anonymous · No personal data collected</p>
+                    <p class="confirm-text">
+                        This data will be sent to Students at Auckland Normal Intermediate,
+                        and the data being sent will be anonymous.
+                    </p>
+                    <button class="btn" type="button" id="understand-btn">
+                        Yes, I understand
+                    </button>
+                    <p class="confirm-note">
+                        Anonymous · No personal data collected
+                    </p>
                 </div>
             </section>
 
-            <!-- SURVEY -->
+            <!-- =========================
+                 SURVEY
+            ========================== -->
             <section class="panel survey-panel" id="survey-panel">
-                <div class="progress-row">
-                    <div class="progress-meta">
-                        <span class="progress-text" id="progress-text">Step 1 of 5</span>
-                        <span class="progress-text" id="progress-percent">0%</span>
-                    </div>
-                    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
-                </div>
-
-                <div class="step" id="step-1">
+                <form id="survey-form" novalidate>
+                    <!-- Q1 -->
                     <div class="question">
-                        <p class="q-label"><span class="q-num">Q1</span>Do you litter in the ocean?</p>
-                        <div class="options">
-                            <input type="radio" name="litter" value="yes" id="litter-yes"><label for="litter-yes">Yes</label>
-                            <input type="radio" name="litter" value="no" id="litter-no"><label for="litter-no">No</label>
+                        <p class="q-label">
+                            <span class="q-num">Q1</span>
+                            If you did litter in the ocean, what are you most likely to put in?
+                        </p>
+                        <div class="options options-stacked">
+                            <input type="radio" name="item" value="Waterbottle" id="item-bottle" required>
+                            <label for="item-bottle">Water bottle</label>
+
+                            <input type="radio" name="item" value="Plastic bag" id="item-bag">
+                            <label for="item-bag">Plastic bag</label>
+
+                            <input type="radio" name="item" value="Food wrapper / Container" id="item-wrapper">
+                            <label for="item-wrapper">Food wrapper / Container</label>
+
+                            <input type="radio" name="item" value="Other" id="item-other">
+                            <label for="item-other">Other</label>
                         </div>
                     </div>
-                    <div class="next-wrap" id="next-1"><button class="btn btn-block next-btn" type="button" data-goto="2">Next &rarr;</button></div>
-                </div>
 
-                <div class="step" id="step-2">
+                    <!-- Q2 -->
                     <div class="question">
-                        <p class="q-label"><span class="q-num">Q2</span><span id="q2-text">Why do you do it?</span></p>
-                        <textarea id="reason" placeholder="Share your thoughts..."></textarea>
-                    </div>
-                    <div class="next-wrap" id="next-2"><button class="btn btn-block next-btn" type="button" data-goto="3">Next &rarr;</button></div>
-                </div>
+                        <p class="q-label">
+                            <span class="q-num">Q2</span>
+                            When was the last time you littered in the ocean?
+                        </p>
+                        <div class="options options-stacked">
+                            <input type="radio" name="timeframe" value="Within past day" id="time-day" required>
+                            <label for="time-day">Within past day</label>
 
-                <div class="step" id="step-3">
-                    <div class="question">
-                        <p class="q-label"><span class="q-num">Q3</span>How could we prevent it from happening?</p>
-                        <textarea id="prevention" placeholder="Share your ideas..."></textarea>
-                    </div>
-                    <div class="next-wrap" id="next-3"><button class="btn btn-block next-btn" type="button" data-goto="4">Next &rarr;</button></div>
-                </div>
+                            <input type="radio" name="timeframe" value="Within past week" id="time-week">
+                            <label for="time-week">Within past week</label>
 
-                <div class="step" id="step-4">
-                    <div class="question">
-                        <p class="q-label"><span class="q-num">Q4</span>Do you recycle at home?</p>
-                        <div class="options">
-                            <input type="radio" name="recycle" value="yes" id="recycle-yes"><label for="recycle-yes">Yes</label>
-                            <input type="radio" name="recycle" value="no" id="recycle-no"><label for="recycle-no">No</label>
-                            <input type="radio" name="recycle" value="sometimes" id="recycle-sometimes"><label for="recycle-sometimes">Sometimes</label>
+                            <input type="radio" name="timeframe" value="Within past month" id="time-month">
+                            <label for="time-month">Within past month</label>
+
+                            <input type="radio" name="timeframe" value="Never" id="time-never">
+                            <label for="time-never">Never</label>
                         </div>
                     </div>
-                    <div class="next-wrap" id="next-4"><button class="btn btn-block next-btn" type="button" data-goto="5">Next &rarr;</button></div>
-                </div>
 
-                <div class="step" id="step-5">
+                    <!-- Q3 -->
                     <div class="question">
-                        <p class="q-label"><span class="q-num">Q5</span>Do you use reusable bottles or bags to reduce plastic waste?</p>
+                        <p class="q-label">
+                            <span class="q-num">Q3</span>
+                            Why would you litter / what is the most likely reason for you to litter in the ocean?
+                        </p>
+                        <textarea id="reason" placeholder="Share your thoughts..." required></textarea>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="question">
+                        <p class="q-label">
+                            <span class="q-num">Q4</span>
+                            Do you know anyone who does litter in the ocean?
+                        </p>
                         <div class="options">
-                            <input type="radio" name="reusable" value="always" id="reusable-always"><label for="reusable-always">Always</label>
-                            <input type="radio" name="reusable" value="often" id="reusable-often"><label for="reusable-often">Often</label>
-                            <input type="radio" name="reusable" value="rarely" id="reusable-rarely"><label for="reusable-rarely">Rarely</label>
-                            <input type="radio" name="reusable" value="never" id="reusable-never"><label for="reusable-never">Never</label>
+                            <input type="radio" name="knows_litterer" value="Yes" id="knows-yes" required>
+                            <label for="knows-yes">Yes</label>
+                            
+                            <input type="radio" name="knows_litterer" value="No" id="knows-no">
+                            <label for="knows-no">No</label>
                         </div>
                     </div>
-                    <div class="next-wrap" id="next-5"><button class="btn btn-block next-btn" type="button" id="final-submit-btn">Submit</button></div>
-                </div>
+
+                    <!-- Q5 -->
+                    <div class="question">
+                        <p class="q-label">
+                            <span class="q-num">Q5</span>
+                            How could we stop this?
+                        </p>
+                        <textarea id="prevention" placeholder="Share your ideas..." required></textarea>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="submit-row" id="submit-row">
+                        <button class="btn btn-block" type="submit" id="submit-btn">
+                            Submit
+                        </button>
+                    </div>
+                </form>
             </section>
 
-            <!-- THANKS -->
+            <!-- =========================
+                 THANK YOU
+            ========================== -->
             <section class="panel thanks-panel" id="thanks-panel">
                 <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                     <circle cx="12" cy="12" r="9"/>
@@ -319,217 +556,138 @@
                 </svg>
                 <p class="thanks-title">Thank you</p>
                 <p class="thanks-text" id="thanks-text"></p>
-                <button class="btn btn-outline" type="button" id="again-btn">Take the survey again</button>
             </section>
         </div>
     </div>
 </main>
 
 <script>
-    /* ============================================================
-       Legacy-safe JS: no forEach, no arrows, no template literals
-    ============================================================ */
-    var VALID = ["ocean", "light", "mono", "soft", "brutalist", "glass"];
-    function get(id) { return document.getElementById(id); }
+    const NTFY_TOPIC_URL = "https://ntfy.sh/ANI-exhibition-project-red-bro-cookie-security";
+    const STORAGE_KEY = "ani_ocean_survey_completed";
 
-    /* ============ THEME ============ */
-    function applyTheme(t) {
-        if (VALID.indexOf(t) < 0) t = "ocean";
-        document.documentElement.setAttribute("data-theme", t);
-        document.body.setAttribute("data-theme", t);
-        try { localStorage.setItem("ani_ocean_survey_theme", t); } catch (e) {}
-        var bs = document.querySelectorAll(".theme-btn");
-        for (var i = 0; i < bs.length; i++) {
-            bs[i].className = (bs[i].getAttribute("data-theme-target") === t) ? "theme-btn active" : "theme-btn";
-        }
-    }
+    /* Elements */
+    const confirmPanel = document.getElementById("confirm-panel");
+    const surveyPanel = document.getElementById("survey-panel");
+    const thanksPanel = document.getElementById("thanks-panel");
+    const understandBtn = document.getElementById("understand-btn");
+    const surveyForm = document.getElementById("survey-form");
+    const reason = document.getElementById("reason");
+    const prevention = document.getElementById("prevention");
+    const submitBtn = document.getElementById("submit-btn");
+    const thanksText = document.getElementById("thanks-text");
 
-    var tb = get("theme-bar");
-    if (tb) {
-        var btns = tb.getElementsByTagName("button");
-        for (var bi = 0; bi < btns.length; bi++) {
-            btns[bi].onclick = function () { applyTheme(this.getAttribute("data-theme-target")); return false; };
-        }
-    }
+    let state = "confirm";
 
-    var initial = "ocean";
-    try { initial = localStorage.getItem("ani_ocean_survey_theme") || "ocean"; } catch (e) {}
-    applyTheme(initial);
-
-    /* ============ STATE ============ */
-    var state = "confirm";
-    var current = 1;
-    var TOTAL = 5;
-
-    var confirmPanel = get("confirm-panel");
-    var surveyPanel = get("survey-panel");
-    var thanksPanel = get("thanks-panel");
-    var understandBtn = get("understand-btn");
-    var againBtn = get("again-btn");
-    var progressText = get("progress-text");
-    var progressPercent = get("progress-percent");
-    var progressFill = get("progress-fill");
-    var q2Text = get("q2-text");
-
-    /* ============ PROGRESS ============ */
-    function updateProgress(s) {
-        var pct = (s === TOTAL) ? 100 : Math.round(((s - 1) / TOTAL) * 100);
-        progressFill.style.width = pct + "%";
-        progressText.textContent = "Step " + s + " of " + TOTAL;
-        progressPercent.textContent = pct + "%";
-    }
-
-    /* ============ STEP ============ */
-    function showStep(s) {
-        current = s;
-        var steps = document.querySelectorAll(".step");
-        for (var i = 0; i < steps.length; i++) steps[i].className = "step";
-        get("step-" + s).className = "step active";
-        if (s === 2) {
-            var sel = document.querySelector('input[name="litter"]:checked');
-            q2Text.textContent = (sel && sel.value === "yes") ? "Why do you do it?" : "Why do you think people do it?";
-        }
-        updateProgress(s);
-    }
-
-    /* ============ THANKS ============ */
-    function showThanks(msg, noAgain) {
+    /* Thank You Screen */
+    function showThanks(message) {
         state = "thanks";
-        if (confirmPanel) confirmPanel.style.display = "none";
-        if (surveyPanel) surveyPanel.style.display = "none";
-        get("thanks-text").textContent = msg;
+        confirmPanel.style.display = "none";
+        surveyPanel.style.display = "none";
+        thanksText.textContent = message;
         thanksPanel.style.display = "block";
-        againBtn.style.display = noAgain ? "none" : "inline-block";
     }
 
-    if (localStorage.getItem("ani_ocean_survey_completed")) {
-        showThanks("You have already completed this survey. Thank you!", true);
+    if (localStorage.getItem(STORAGE_KEY)) {
+        showThanks("You have already completed this survey. Thank you!");
     }
 
-    /* ============ FULL RESET (for "take again") ============ */
-    function resetAll() {
-        state = "confirm";
-        current = 1;
-
-        var radios = document.querySelectorAll('input[type="radio"]');
-        for (var i = 0; i < radios.length; i++) radios[i].checked = false;
-        if (get("reason")) get("reason").value = "";
-        if (get("prevention")) get("prevention").value = "";
-
-        var ws = document.querySelectorAll(".next-wrap");
-        for (var w = 0; w < ws.length; w++) ws[w].className = "next-wrap";
-
-        var steps = document.querySelectorAll(".step");
-        for (var s2 = 0; s2 < steps.length; s2++) steps[s2].className = "step";
-
-        progressFill.style.width = "0%";
-        progressText.textContent = "Step 1 of " + TOTAL;
-        progressPercent.textContent = "0%";
-
-        surveyPanel.className = "panel survey-panel";
-        thanksPanel.style.display = "none";
-        confirmPanel.style.display = "block";
-        confirmPanel.className = "panel confirm-panel";
-        clearTimeout(enterTimer);
-        window.scrollTo(0, 0);
-    }
-
-    var enterTimer = null;
-
-    /* ============ OPEN SURVEY ============ */
-    understandBtn.onclick = function () {
+    /* Open Survey */
+    understandBtn.addEventListener("click", () => {
         if (state !== "confirm") return;
         state = "survey";
-        confirmPanel.className = "panel confirm-panel exit";
-        enterTimer = setTimeout(function () {
+        confirmPanel.classList.add("exit");
+        setTimeout(() => {
             confirmPanel.style.display = "none";
-            surveyPanel.className = "panel survey-panel active";
-            showStep(1);
+            surveyPanel.classList.add("active");
         }, 350);
-    };
+    });
 
-    /* ============ REVEAL next ============ */
-    function bindRadios(name, cb) {
-        var rs = document.querySelectorAll('input[name="' + name + '"]');
-        for (var i = 0; i < rs.length; i++) rs[i].onchange = cb;
-    }
+    /* Submit Form to ntfy */
+    surveyForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
 
-    bindRadios("litter", function () { get("next-1").className = "next-wrap visible"; });
-    get("reason").oninput = function () { if (this.value.trim()) get("next-2").className = "next-wrap visible"; };
-    get("prevention").oninput = function () { if (this.value.trim()) get("next-3").className = "next-wrap visible"; };
-    bindRadios("recycle", function () { if (document.querySelector('input[name="recycle"]:checked')) get("next-4").className = "next-wrap visible"; });
-    bindRadios("reusable", function () { if (document.querySelector('input[name="reusable"]:checked')) get("next-5").className = "next-wrap visible"; });
+        if (state !== "survey") return;
 
-    /* ============ NEXT NAV ============ */
-    var navs = document.querySelectorAll(".next-btn[data-goto]");
-    for (var ni = 0; ni < navs.length; ni++) {
-        navs[ni].onclick = function () { showStep(parseInt(this.getAttribute("data-goto"), 10)); return false; };
-    }
-
-    /* ============ AGAIN ============ */
-    againBtn.onclick = function () {
-        try { localStorage.removeItem("ani_ocean_survey_completed"); } catch (e) {}
-        resetAll();
-    };
-
-    /* ============ SUBMIT ============ */
-    get("final-submit-btn").onclick = function () {
-        if (state !== "survey") {
-            alert("Please start from the beginning.");
-            return;
-        }
-        if (localStorage.getItem("ani_ocean_survey_completed")) {
-            showThanks("You have already completed this survey. Thank you!", true);
+        if (localStorage.getItem(STORAGE_KEY)) {
+            showThanks("You have already completed this survey. Thank you!");
             return;
         }
 
-        var lit = document.querySelector('input[name="litter"]:checked');
-        var rec = document.querySelector('input[name="recycle"]:checked');
-        var reu = document.querySelector('input[name="reusable"]:checked');
+        const selectedItem = document.querySelector('input[name="item"]:checked');
+        const selectedTimeframe = document.querySelector('input[name="timeframe"]:checked');
+        const selectedKnows = document.querySelector('input[name="knows_litterer"]:checked');
 
-        if (!lit || !rec || !reu) {
-            alert("Please answer all questions.");
+        const reasonResponse = reason.value.trim();
+        const preventionResponse = prevention.value.trim();
+
+        if (!selectedItem) {
+            alert("Please answer Question 1.");
             return;
         }
 
-        var litL = lit.value === "yes" ? "Yes" : "No";
-        var recL = rec.value.charAt(0).toUpperCase() + rec.value.slice(1);
-        var reuL = reu.value.charAt(0).toUpperCase() + reu.value.slice(1);
-        var rq = lit.value === "yes" ? "Why do you do it?" : "Why do you think people do it?";
+        if (!selectedTimeframe) {
+            alert("Please answer Question 2.");
+            return;
+        }
 
-        var body = "Do you litter in the ocean?: " + litL + "\n\n"
-            + rq + "\n" + get("reason").value.trim() + "\n\n"
-            + "How could we prevent it from happening?\n" + get("prevention").value.trim() + "\n\n"
-            + "Do you recycle at home?: " + recL + "\n\n"
-            + "Do you use reusable bottles or bags to reduce plastic waste?: " + reuL;
+        if (!reasonResponse) {
+            alert("Please answer Question 3.");
+            reason.focus();
+            return;
+        }
 
-        var self = this;
-        self.disabled = true;
-        self.textContent = "Sending...";
+        if (!selectedKnows) {
+            alert("Please answer Question 4.");
+            return;
+        }
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "https://ntfy.sh/ANI-exhibition-project-red-bro-cookie-security", true);
-        xhr.setRequestHeader("Title", "New Ocean Survey Submission");
-        xhr.setRequestHeader("Tags", "wave,ocean,survey");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    try { localStorage.setItem("ani_ocean_survey_completed", "true"); } catch (e) {}
-                    showThanks("Thank you! Your response has been recorded anonymously.", false);
-                } else {
-                    alert("Submission failed. Please try again.");
-                    self.disabled = false;
-                    self.textContent = "Submit";
+        if (!preventionResponse) {
+            alert("Please answer Question 5.");
+            prevention.focus();
+            return;
+        }
+
+        /* Format text message for ntfy */
+        const messageBody = 
+`Most likely item to litter: ${selectedItem.value}
+Last time littered: ${selectedTimeframe.value}
+
+Reason to litter:
+${reasonResponse}
+
+Knows someone who litters: ${selectedKnows.value}
+
+How to stop this:
+${preventionResponse}`;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+
+        try {
+            const response = await fetch(NTFY_TOPIC_URL, {
+                method: "POST",
+                body: messageBody,
+                headers: {
+                    "Title": "New Ocean Survey Submission",
+                    "Tags": "wave,ocean,survey"
                 }
+            });
+
+            if (response.ok) {
+                localStorage.setItem(STORAGE_KEY, "true");
+                showThanks("Thank you! Your response has been recorded anonymously.");
+            } else {
+                console.error("ntfy returned:", response.status);
+                alert("Submission failed. Please try again.");
             }
-        };
-        xhr.onerror = function () {
-            alert("An error occurred while sending the survey. Please check your connection.");
-            self.disabled = false;
-            self.textContent = "Submit";
-        };
-        xhr.send(body);
-    };
+        } catch (error) {
+            console.error("Submission error:", error);
+            alert("An error occurred while sending the survey. Please check your internet connection and try again.");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit";
+        }
+    });
 </script>
 
 </body>
