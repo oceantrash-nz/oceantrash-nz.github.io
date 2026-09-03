@@ -56,7 +56,6 @@
             max-width: 640px;
         }
 
-        /* Header */
         header {
             text-align: center;
             margin-bottom: 48px;
@@ -107,7 +106,6 @@
             opacity: .7;
         }
 
-        /* Card */
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -126,7 +124,6 @@
             padding: 48px;
         }
 
-        /* Confirmation */
         .confirm-panel {
             opacity: 1;
             transform: translateX(0);
@@ -175,7 +172,6 @@
             margin-top: 18px;
         }
 
-        /* Buttons */
         .btn {
             display: inline-block;
             padding: 15px 32px;
@@ -212,7 +208,6 @@
             width: 100%;
         }
 
-        /* Survey */
         .survey-panel {
             display: none;
         }
@@ -233,10 +228,17 @@
             }
         }
 
-        /* Questions */
+        .step-card {
+            display: none;
+        }
+        .step-card.active-step {
+            display: block;
+            animation: surveyEnter .4s cubic-bezier(.22, 1, .36, 1);
+        }
+
         .question {
-            padding: 28px 0;
-            border-bottom: 1px solid var(--border);
+            padding: 0 0 28px 0;
+            border-bottom: 0;
         }
 
         .question:first-child {
@@ -263,7 +265,6 @@
             margin-right: 10px;
         }
 
-        /* Inputs & Grid Options */
         .options {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -325,7 +326,6 @@
             outline-offset: 3px;
         }
 
-        /* Textareas */
         textarea {
             width: 100%;
             min-height: 110px;
@@ -353,12 +353,29 @@
             box-shadow: 0 0 0 3px rgba(91, 192, 190, 0.15);
         }
 
-        /* Submit */
         .submit-row {
-            margin-top: 32px;
+            margin-top: 28px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .submit-row .btn {
+            flex: 1 1 auto;
+            min-width: 120px;
         }
 
-        /* Thanks */
+        .btn-outline {
+            background: transparent;
+            color: var(--muted);
+            border-color: var(--border);
+        }
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.04);
+            color: var(--text);
+            border-color: var(--accent);
+            box-shadow: none;
+        }
+
         .thanks-panel {
             display: none;
             text-align: center;
@@ -387,7 +404,24 @@
             margin: 0 auto;
         }
 
-        /* Mobile */
+        .step-progress {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--muted);
+            letter-spacing: .06em;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+        .step-progress span {
+            background: var(--accent-soft);
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(91, 192, 190, 0.2);
+        }
+
         @media (max-width: 560px) {
             body {
                 padding: 40px 16px 32px;
@@ -403,6 +437,9 @@
 
             .options label {
                 padding: 13px 16px;
+            }
+            .submit-row .btn {
+                min-width: 100%;
             }
         }
     </style>
@@ -458,92 +495,112 @@
             </section>
 
             <!-- =========================
-                 SURVEY
+                 SURVEY  (渐进式步骤)
             ========================== -->
             <section class="panel survey-panel" id="survey-panel">
-                <form id="survey-form" novalidate>
-                    <!-- Q1 -->
-                    <div class="question">
-                        <p class="q-label">
-                            <span class="q-num">Q1</span>
-                            If you did litter in the ocean, what are you most likely to put in?
-                        </p>
-                        <div class="options options-stacked">
-                            <input type="radio" name="item" value="Waterbottle" id="item-bottle" required>
-                            <label for="item-bottle">Water bottle</label>
+                <div class="step-progress">
+                    <span id="step-indicator">Step 1 / 5</span>
+                    <span id="step-name">Question 1</span>
+                </div>
 
-                            <input type="radio" name="item" value="Plastic bag" id="item-bag">
-                            <label for="item-bag">Plastic bag</label>
-
-                            <input type="radio" name="item" value="Food wrapper / Container" id="item-wrapper">
-                            <label for="item-wrapper">Food wrapper / Container</label>
-
-                            <input type="radio" name="item" value="Other" id="item-other">
-                            <label for="item-other">Other</label>
+                <div id="step-container">
+                    <!-- Step 1 -->
+                    <div class="step-card active-step" data-step="1">
+                        <div class="question">
+                            <p class="q-label">
+                                <span class="q-num">Q1</span>
+                                If you did litter in the ocean, what are you most likely to put in?
+                            </p>
+                            <div class="options options-stacked">
+                                <input type="radio" name="item" value="Waterbottle" id="item-bottle">
+                                <label for="item-bottle">Water bottle</label>
+                                <input type="radio" name="item" value="Plastic bag" id="item-bag">
+                                <label for="item-bag">Plastic bag</label>
+                                <input type="radio" name="item" value="Food wrapper / Container" id="item-wrapper">
+                                <label for="item-wrapper">Food wrapper / Container</label>
+                                <input type="radio" name="item" value="Other" id="item-other">
+                                <label for="item-other">Other</label>
+                            </div>
+                        </div>
+                        <div class="submit-row">
+                            <button class="btn btn-block step-next" data-next="2">Submit & Next →</button>
                         </div>
                     </div>
 
-                    <!-- Q2 -->
-                    <div class="question">
-                        <p class="q-label">
-                            <span class="q-num">Q2</span>
-                            When was the last time you littered in the ocean?
-                        </p>
-                        <div class="options options-stacked">
-                            <input type="radio" name="timeframe" value="Within past day" id="time-day" required>
-                            <label for="time-day">Within past day</label>
-
-                            <input type="radio" name="timeframe" value="Within past week" id="time-week">
-                            <label for="time-week">Within past week</label>
-
-                            <input type="radio" name="timeframe" value="Within past month" id="time-month">
-                            <label for="time-month">Within past month</label>
-
-                            <input type="radio" name="timeframe" value="Never" id="time-never">
-                            <label for="time-never">Never</label>
+                    <!-- Step 2 -->
+                    <div class="step-card" data-step="2">
+                        <div class="question">
+                            <p class="q-label">
+                                <span class="q-num">Q2</span>
+                                When was the last time you littered in the ocean?
+                            </p>
+                            <div class="options options-stacked">
+                                <input type="radio" name="timeframe" value="Within past day" id="time-day">
+                                <label for="time-day">Within past day</label>
+                                <input type="radio" name="timeframe" value="Within past week" id="time-week">
+                                <label for="time-week">Within past week</label>
+                                <input type="radio" name="timeframe" value="Within past month" id="time-month">
+                                <label for="time-month">Within past month</label>
+                                <input type="radio" name="timeframe" value="Never" id="time-never">
+                                <label for="time-never">Never</label>
+                            </div>
+                        </div>
+                        <div class="submit-row">
+                            <button class="btn btn-outline step-prev" data-prev="1">← Back</button>
+                            <button class="btn step-next" data-next="3">Submit & Next →</button>
                         </div>
                     </div>
 
-                    <!-- Q3 -->
-                    <div class="question">
-                        <p class="q-label">
-                            <span class="q-num">Q3</span>
-                            Why would you litter / what is the most likely reason for you to litter in the ocean?
-                        </p>
-                        <textarea id="reason" placeholder="Share your thoughts..." required></textarea>
-                    </div>
-
-                    <!-- Q4 -->
-                    <div class="question">
-                        <p class="q-label">
-                            <span class="q-num">Q4</span>
-                            Do you know anyone who does litter in the ocean?
-                        </p>
-                        <div class="options">
-                            <input type="radio" name="knows_litterer" value="Yes" id="knows-yes" required>
-                            <label for="knows-yes">Yes</label>
-                            
-                            <input type="radio" name="knows_litterer" value="No" id="knows-no">
-                            <label for="knows-no">No</label>
+                    <!-- Step 3 -->
+                    <div class="step-card" data-step="3">
+                        <div class="question">
+                            <p class="q-label">
+                                <span class="q-num">Q3</span>
+                                Why would you litter / what is the most likely reason for you to litter in the ocean?
+                            </p>
+                            <textarea id="reason" placeholder="Share your thoughts..."></textarea>
+                        </div>
+                        <div class="submit-row">
+                            <button class="btn btn-outline step-prev" data-prev="2">← Back</button>
+                            <button class="btn step-next" data-next="4">Submit & Next →</button>
                         </div>
                     </div>
 
-                    <!-- Q5 -->
-                    <div class="question">
-                        <p class="q-label">
-                            <span class="q-num">Q5</span>
-                            How could we stop this?
-                        </p>
-                        <textarea id="prevention" placeholder="Share your ideas..." required></textarea>
+                    <!-- Step 4 -->
+                    <div class="step-card" data-step="4">
+                        <div class="question">
+                            <p class="q-label">
+                                <span class="q-num">Q4</span>
+                                Do you know anyone who does litter in the ocean?
+                            </p>
+                            <div class="options">
+                                <input type="radio" name="knows_litterer" value="Yes" id="knows-yes">
+                                <label for="knows-yes">Yes</label>
+                                <input type="radio" name="knows_litterer" value="No" id="knows-no">
+                                <label for="knows-no">No</label>
+                            </div>
+                        </div>
+                        <div class="submit-row">
+                            <button class="btn btn-outline step-prev" data-prev="3">← Back</button>
+                            <button class="btn step-next" data-next="5">Submit & Next →</button>
+                        </div>
                     </div>
 
-                    <!-- Submit -->
-                    <div class="submit-row" id="submit-row">
-                        <button class="btn btn-block" type="submit" id="submit-btn">
-                            Submit
-                        </button>
+                    <!-- Step 5 -->
+                    <div class="step-card" data-step="5">
+                        <div class="question">
+                            <p class="q-label">
+                                <span class="q-num">Q5</span>
+                                How could we stop this?
+                            </p>
+                            <textarea id="prevention" placeholder="Share your ideas..."></textarea>
+                        </div>
+                        <div class="submit-row">
+                            <button class="btn btn-outline step-prev" data-prev="4">← Back</button>
+                            <button class="btn" type="button" id="final-submit-btn">Submit All</button>
+                        </div>
                     </div>
-                </form>
+                </div>
             </section>
 
             <!-- =========================
@@ -562,132 +619,195 @@
 </main>
 
 <script>
-    const NTFY_TOPIC_URL = "https://ntfy.sh/ANI-exhibition-project-red-bro-cookie-security";
-    const STORAGE_KEY = "ani_ocean_survey_completed2";
+    (function() {
+        const NTFY_TOPIC_URL = "https://ntfy.sh/ANI-exhibition-project-red-bro-cookie-security";
+        const STORAGE_KEY = "ani_ocean_survey_completed";
 
-    /* Elements */
-    const confirmPanel = document.getElementById("confirm-panel");
-    const surveyPanel = document.getElementById("survey-panel");
-    const thanksPanel = document.getElementById("thanks-panel");
-    const understandBtn = document.getElementById("understand-btn");
-    const surveyForm = document.getElementById("survey-form");
-    const reason = document.getElementById("reason");
-    const prevention = document.getElementById("prevention");
-    const submitBtn = document.getElementById("submit-btn");
-    const thanksText = document.getElementById("thanks-text");
+        const confirmPanel = document.getElementById("confirm-panel");
+        const surveyPanel = document.getElementById("survey-panel");
+        const thanksPanel = document.getElementById("thanks-panel");
+        const understandBtn = document.getElementById("understand-btn");
+        const stepCards = document.querySelectorAll(".step-card");
+        const stepIndicator = document.getElementById("step-indicator");
+        const stepName = document.getElementById("step-name");
+        const finalSubmitBtn = document.getElementById("final-submit-btn");
+        const thanksText = document.getElementById("thanks-text");
 
-    let state = "confirm";
+        const answers = {
+            item: null,
+            timeframe: null,
+            reason: "",
+            knows_litterer: null,
+            prevention: ""
+        };
 
-    /* Thank You Screen */
-    function showThanks(message) {
-        state = "thanks";
-        confirmPanel.style.display = "none";
-        surveyPanel.style.display = "none";
-        thanksText.textContent = message;
-        thanksPanel.style.display = "block";
-    }
+        let currentStep = 1;
+        const totalSteps = 5;
+        let state = "confirm"; 
 
-    if (localStorage.getItem(STORAGE_KEY)) {
-        showThanks("You have already completed this survey. Thank you!");
-    }
+        function updateStepUI(step) {
+            stepCards.forEach(card => {
+                const s = parseInt(card.dataset.step, 10);
+                card.classList.toggle("active-step", s === step);
+            });
+            stepIndicator.textContent = `Step ${step} / ${totalSteps}`;
+            const names = ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5"];
+            stepName.textContent = names[step - 1] || "";
+        }
 
-    /* Open Survey */
-    understandBtn.addEventListener("click", () => {
-        if (state !== "confirm") return;
-        state = "survey";
-        confirmPanel.classList.add("exit");
-        setTimeout(() => {
+        function collectStepAnswers(step) {
+            if (step === 1) {
+                const sel = document.querySelector('input[name="item"]:checked');
+                answers.item = sel ? sel.value : null;
+            } else if (step === 2) {
+                const sel = document.querySelector('input[name="timeframe"]:checked');
+                answers.timeframe = sel ? sel.value : null;
+            } else if (step === 3) {
+                const txt = document.getElementById("reason");
+                answers.reason = txt.value.trim();
+            } else if (step === 4) {
+                const sel = document.querySelector('input[name="knows_litterer"]:checked');
+                answers.knows_litterer = sel ? sel.value : null;
+            } else if (step === 5) {
+                const txt = document.getElementById("prevention");
+                answers.prevention = txt.value.trim();
+            }
+        }
+
+        function validateStep(step) {
+            if (step === 1) return answers.item !== null;
+            if (step === 2) return answers.timeframe !== null;
+            if (step === 3) return answers.reason.length > 0;
+            if (step === 4) return answers.knows_litterer !== null;
+            if (step === 5) return answers.prevention.length > 0;
+            return true;
+        }
+
+        function showThanks(message) {
+            state = "thanks";
             confirmPanel.style.display = "none";
-            surveyPanel.classList.add("active");
-        }, 350);
-    });
-
-    /* Submit Form to ntfy */
-    surveyForm.addEventListener("submit", async function(event) {
-        event.preventDefault();
-
-        if (state !== "survey") return;
+            surveyPanel.style.display = "none";
+            thanksText.textContent = message;
+            thanksPanel.style.display = "block";
+        }
 
         if (localStorage.getItem(STORAGE_KEY)) {
             showThanks("You have already completed this survey. Thank you!");
-            return;
         }
 
-        const selectedItem = document.querySelector('input[name="item"]:checked');
-        const selectedTimeframe = document.querySelector('input[name="timeframe"]:checked');
-        const selectedKnows = document.querySelector('input[name="knows_litterer"]:checked');
+        understandBtn.addEventListener("click", () => {
+            if (state !== "confirm") return;
+            state = "survey";
+            confirmPanel.classList.add("exit");
+            setTimeout(() => {
+                confirmPanel.style.display = "none";
+                surveyPanel.classList.add("active");
+                currentStep = 1;
+                updateStepUI(currentStep);
+            }, 350);
+        });
 
-        const reasonResponse = reason.value.trim();
-        const preventionResponse = prevention.value.trim();
-
-        if (!selectedItem) {
-            alert("Please answer Question 1.");
-            return;
-        }
-
-        if (!selectedTimeframe) {
-            alert("Please answer Question 2.");
-            return;
-        }
-
-        if (!reasonResponse) {
-            alert("Please answer Question 3.");
-            reason.focus();
-            return;
-        }
-
-        if (!selectedKnows) {
-            alert("Please answer Question 4.");
-            return;
-        }
-
-        if (!preventionResponse) {
-            alert("Please answer Question 5.");
-            prevention.focus();
-            return;
-        }
-
-        /* Format text message for ntfy */
-        const messageBody = 
-`Most likely item to litter: ${selectedItem.value}
-Last time littered: ${selectedTimeframe.value}
-
-Reason to litter:
-${reasonResponse}
-
-Knows someone who litters: ${selectedKnows.value}
-
-How to stop this:
-${preventionResponse}`;
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Sending...";
-
-        try {
-            const response = await fetch(NTFY_TOPIC_URL, {
-                method: "POST",
-                body: messageBody,
-                headers: {
-                    "Title": "New Ocean Survey Submission",
-                    "Tags": "wave,ocean,survey"
+        // 下一步
+        document.querySelectorAll(".step-next").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (state !== "survey") return;
+                const next = parseInt(btn.dataset.next, 10);
+                collectStepAnswers(currentStep);
+                if (!validateStep(currentStep)) {
+                    alert("Please answer the current question.");
+                    return;
+                }
+                if (next >= 1 && next <= totalSteps) {
+                    currentStep = next;
+                    updateStepUI(currentStep);
                 }
             });
+        });
 
-            if (response.ok) {
-                localStorage.setItem(STORAGE_KEY, "true");
-                showThanks("Thank you! Your response has been recorded anonymously.");
-            } else {
-                console.error("ntfy returned:", response.status);
-                alert("Submission failed. Please try again.");
+        // 上一步
+        document.querySelectorAll(".step-prev").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (state !== "survey") return;
+                const prev = parseInt(btn.dataset.prev, 10);
+                collectStepAnswers(currentStep);
+                if (prev >= 1 && prev <= totalSteps) {
+                    currentStep = prev;
+                    updateStepUI(currentStep);
+                }
+            });
+        });
+
+        // 最终提交
+        finalSubmitBtn.addEventListener("click", async function() {
+            if (state !== "survey") return;
+            if (localStorage.getItem(STORAGE_KEY)) {
+                showThanks("You have already completed this survey. Thank you!");
+                return;
             }
-        } catch (error) {
-            console.error("Submission error:", error);
-            alert("An error occurred while sending the survey. Please check your internet connection and try again.");
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Submit";
-        }
-    });
+
+            collectStepAnswers(5);
+
+            const allValid = 
+                answers.item !== null &&
+                answers.timeframe !== null &&
+                answers.reason.length > 0 &&
+                answers.knows_litterer !== null &&
+                answers.prevention.length > 0;
+
+            if (!allValid) {
+                alert("Please make sure all questions are answered.");
+                if (answers.item === null) { currentStep = 1; updateStepUI(1); }
+                else if (answers.timeframe === null) { currentStep = 2; updateStepUI(2); }
+                else if (answers.reason.length === 0) { currentStep = 3; updateStepUI(3); }
+                else if (answers.knows_litterer === null) { currentStep = 4; updateStepUI(4); }
+                else if (answers.prevention.length === 0) { currentStep = 5; updateStepUI(5); }
+                return;
+            }
+
+            const messageBody = 
+`Most likely item to litter: ${answers.item}
+Last time littered: ${answers.timeframe}
+
+Reason to litter:
+${answers.reason}
+
+Knows someone who litters: ${answers.knows_litterer}
+
+How to stop this:
+${answers.prevention}`;
+
+            finalSubmitBtn.disabled = true;
+            finalSubmitBtn.textContent = "Sending...";
+
+            try {
+                const response = await fetch(NTFY_TOPIC_URL, {
+                    method: "POST",
+                    body: messageBody,
+                    headers: {
+                        "Title": "New Ocean Survey Submission",
+                        "Tags": "wave,ocean,survey"
+                    }
+                });
+                if (response.ok) {
+                    localStorage.setItem(STORAGE_KEY, "true");
+                    showThanks("Thank you! Your response has been recorded anonymously.");
+                } else {
+                    console.error("ntfy returned:", response.status);
+                    alert("Submission failed. Please try again.");
+                }
+            } catch (error) {
+                console.error("Submission error:", error);
+                alert("An error occurred. Please check your connection and try again.");
+            } finally {
+                finalSubmitBtn.disabled = false;
+                finalSubmitBtn.textContent = "Submit All";
+            }
+        });
+
+        updateStepUI(1);
+    })();
 </script>
 
 </body>
