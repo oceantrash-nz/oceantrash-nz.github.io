@@ -401,7 +401,7 @@
             line-height: 1.7;
             color: var(--muted);
             max-width: 380px;
-            margin: 0 auto;
+            margin: 0 auto 24px;
         }
 
         .step-progress {
@@ -607,6 +607,7 @@
                 </svg>
                 <p class="thanks-title">Thank you</p>
                 <p class="thanks-text" id="thanks-text"></p>
+                <button class="btn" type="button" id="reset-survey-btn">Submit Another Response</button>
             </section>
         </div>
     </div>
@@ -615,19 +616,19 @@
 <script>
     (function() {
         const NTFY_TOPIC_URL = "https://ntfy.sh/ANI-exhibition-project-red-bro-cookie-security";
-        const STORAGE_KEY = "ani_ocean_survey_v2_completed";
 
         const confirmPanel = document.getElementById("confirm-panel");
         const surveyPanel = document.getElementById("survey-panel");
         const thanksPanel = document.getElementById("thanks-panel");
         const understandBtn = document.getElementById("understand-btn");
+        const resetSurveyBtn = document.getElementById("reset-survey-btn");
         const stepCards = document.querySelectorAll(".step-card");
         const stepIndicator = document.getElementById("step-indicator");
         const stepName = document.getElementById("step-name");
         const finalSubmitBtn = document.getElementById("final-submit-btn");
         const thanksText = document.getElementById("thanks-text");
 
-        const answers = {
+        let answers = {
             item: null,
             timeframe: null,
             reason: "",
@@ -685,8 +686,17 @@
             thanksPanel.style.display = "block";
         }
 
-        if (localStorage.getItem(STORAGE_KEY)) {
-            showThanks("You have already completed this survey. Thank you!");
+        function resetForm() {
+            answers = { item: null, timeframe: null, reason: "", knows_litterer: null, prevention: "" };
+            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+            document.getElementById("reason").value = "";
+            document.getElementById("prevention").value = "";
+            currentStep = 1;
+            updateStepUI(1);
+            thanksPanel.style.display = "none";
+            surveyPanel.style.display = "block";
+            surveyPanel.classList.add("active");
+            state = "survey";
         }
 
         understandBtn.addEventListener("click", () => {
@@ -700,6 +710,8 @@
                 updateStepUI(currentStep);
             }, 350);
         });
+
+        resetSurveyBtn.addEventListener("click", resetForm);
 
         // Next
         document.querySelectorAll(".step-next").forEach(btn => {
@@ -773,7 +785,6 @@ ${answers.prevention}`;
             finalSubmitBtn.textContent = "Sending...";
 
             try {
-                // Sent using no-cors mode to prevent network blocking by the browser
                 await fetch(NTFY_TOPIC_URL, {
                     method: "POST",
                     mode: "no-cors",
@@ -784,7 +795,6 @@ ${answers.prevention}`;
                     }
                 });
                 
-                localStorage.setItem(STORAGE_KEY, "true");
                 showThanks("Thank you! Your response has been recorded anonymously.");
             } catch (error) {
                 console.error("Submission error:", error);
