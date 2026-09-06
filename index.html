@@ -615,7 +615,8 @@
 
 <script>
     (function() {
-        const NTFY_TOPIC_URL = "https://ntfy.sh/ANI-exhibition-project-red-bro-cookie-security";
+        // Replace this string with your Google Apps Script Web App URL from Step 3
+        const GOOGLE_SCRIPT_URL = "YOUR_WEB_APP_URL";
 
         const confirmPanel = document.getElementById("confirm-panel");
         const surveyPanel = document.getElementById("survey-panel");
@@ -769,30 +770,21 @@
                 return;
             }
 
-            const messageBody = 
-`Most likely item to litter: ${answers.item}
-Last time littered: ${answers.timeframe}
-
-Reason to litter:
-${answers.reason}
-
-Knows someone who litters: ${answers.knows_litterer}
-
-How to stop this:
-${answers.prevention}`;
-
             finalSubmitBtn.disabled = true;
             finalSubmitBtn.textContent = "Sending...";
 
+            // Format responses as URL parameters to send to Google Sheets
+            const formData = new URLSearchParams();
+            formData.append("item", answers.item);
+            formData.append("timeframe", answers.timeframe);
+            formData.append("reason", answers.reason);
+            formData.append("knows_litterer", answers.knows_litterer);
+            formData.append("prevention", answers.prevention);
+
             try {
-                await fetch(NTFY_TOPIC_URL, {
+                await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
-                    mode: "no-cors",
-                    body: messageBody,
-                    headers: {
-                        "Title": "New Ocean Survey Submission",
-                        "Tags": "wave,ocean,survey"
-                    }
+                    body: formData
                 });
                 
                 showThanks("Thank you! Your response has been recorded anonymously.");
