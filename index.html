@@ -495,7 +495,7 @@
             <!-- SURVEY PANEL -->
             <section class="panel survey-panel" id="survey-panel">
                 <div class="step-progress">
-                    <span id="step-indicator">Step 1 / 5</span>
+                    <span id="step-indicator">Step 1 / 6</span>
                     <span id="step-name">Question 1</span>
                 </div>
 
@@ -547,14 +547,21 @@
                         </div>
                     </div>
 
-                    <!-- Step 3 -->
+                    <!-- Step 3: litter frequency (skipped when Q2 = Never) -->
                     <div class="step-card" data-step="3">
                         <div class="question">
                             <p class="q-label">
                                 <span class="q-num">Q3</span>
-                                Why would you litter / what is the most likely reason for you to litter in the ocean?
+                                How often do you litter in the ocean?
                             </p>
-                            <textarea id="reason" placeholder="Share your thoughts..."></textarea>
+                            <div class="options options-stacked">
+                                <input type="radio" name="litter_frequency" value="Multiple" id="freq-multiple">
+                                <label for="freq-multiple">Multiple</label>
+                                <input type="radio" name="litter_frequency" value="Once" id="freq-once">
+                                <label for="freq-once">Once</label>
+                                <input type="radio" name="litter_frequency" value="Rarely" id="freq-rarely">
+                                <label for="freq-rarely">Rarely</label>
+                            </div>
                         </div>
                         <div class="submit-row">
                             <button class="btn btn-outline step-prev" data-prev="2">← Back</button>
@@ -567,14 +574,9 @@
                         <div class="question">
                             <p class="q-label">
                                 <span class="q-num">Q4</span>
-                                Do you know anyone who does litter in the ocean?
+                                Why would you litter / what is the most likely reason for you to litter in the ocean?
                             </p>
-                            <div class="options">
-                                <input type="radio" name="knows_litterer" value="Yes" id="knows-yes">
-                                <label for="knows-yes">Yes</label>
-                                <input type="radio" name="knows_litterer" value="No" id="knows-no">
-                                <label for="knows-no">No</label>
-                            </div>
+                            <textarea id="reason" placeholder="Share your thoughts..."></textarea>
                         </div>
                         <div class="submit-row">
                             <button class="btn btn-outline step-prev" data-prev="3">← Back</button>
@@ -587,12 +589,32 @@
                         <div class="question">
                             <p class="q-label">
                                 <span class="q-num">Q5</span>
+                                Do you know anyone who does litter in the ocean?
+                            </p>
+                            <div class="options">
+                                <input type="radio" name="knows_litterer" value="Yes" id="knows-yes">
+                                <label for="knows-yes">Yes</label>
+                                <input type="radio" name="knows_litterer" value="No" id="knows-no">
+                                <label for="knows-no">No</label>
+                            </div>
+                        </div>
+                        <div class="submit-row">
+                            <button class="btn btn-outline step-prev" data-prev="4">← Back</button>
+                            <button class="btn step-next" data-next="6">Submit & Next →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div class="step-card" data-step="6">
+                        <div class="question">
+                            <p class="q-label">
+                                <span class="q-num">Q6</span>
                                 How could we stop this?
                             </p>
                             <textarea id="prevention" placeholder="Share your ideas..."></textarea>
                         </div>
                         <div class="submit-row">
-                            <button class="btn btn-outline step-prev" data-prev="4">← Back</button>
+                            <button class="btn btn-outline step-prev" data-prev="5">← Back</button>
                             <button class="btn" type="button" id="final-submit-btn">Submit All</button>
                         </div>
                     </div>
@@ -632,23 +654,53 @@
         let answers = {
             item: null,
             timeframe: null,
+            litter_frequency: null,
             reason: "",
             knows_litterer: null,
             prevention: ""
         };
 
         let currentStep = 1;
-        const totalSteps = 5;
-        let state = "confirm"; 
+        const totalSteps = 6;
+        let state = "confirm";
+
+        // Step 3 (litter frequency) is skipped entirely when the user
+        // answers "Never" on Question 2.
+        function isStepSkipped(step) {
+            return step === 3 && answers.timeframe === "Never";
+        }
+
+        function getVisibleSteps() {
+            const all = [1, 2, 3, 4, 5, 6];
+            return all.filter(s => !isStepSkipped(s));
+        }
+
+        // Renumber the Q-badges so questions stay sequential
+        // when the frequency question is skipped.
+        function refreshQuestionNumbers() {
+            const visible = getVisibleSteps();
+            visible.forEach((step, i) => {
+                const card = document.querySelector('.step-card[data-step="' + step + '"]');
+                const badge = card ? card.querySelector(".q-num") : null;
+                if (badge) badge.textContent = "Q" + (i + 1);
+            });
+        }
 
         function updateStepUI(step) {
             stepCards.forEach(card => {
                 const s = parseInt(card.dataset.step, 10);
                 card.classList.toggle("active-step", s === step);
             });
-            stepIndicator.textContent = `Step ${step} / ${totalSteps}`;
-            const names = ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5"];
-            stepName.textContent = names[step - 1] || "";
+            const visible = getVisibleSteps();
+            const idx = visible.indexOf(step);
+            stepIndicator.textContent = `Step ${idx + 1} / ${visible.length}`;
+            stepName.textContent = `Question ${idx + 1}`;
+            refreshQuestionNumbers();
+        }
+
+        function clearFrequency() {
+            answers.litter_frequency = null;
+            document.querySelectorAll('input[name="litter_frequency"]').forEach(r => r.checked = false);
         }
 
         function collectStepAnswers(step) {
@@ -659,12 +711,15 @@
                 const sel = document.querySelector('input[name="timeframe"]:checked');
                 answers.timeframe = sel ? sel.value : null;
             } else if (step === 3) {
+                const sel = document.querySelector('input[name="litter_frequency"]:checked');
+                answers.litter_frequency = sel ? sel.value : null;
+            } else if (step === 4) {
                 const txt = document.getElementById("reason");
                 answers.reason = txt.value.trim();
-            } else if (step === 4) {
+            } else if (step === 5) {
                 const sel = document.querySelector('input[name="knows_litterer"]:checked');
                 answers.knows_litterer = sel ? sel.value : null;
-            } else if (step === 5) {
+            } else if (step === 6) {
                 const txt = document.getElementById("prevention");
                 answers.prevention = txt.value.trim();
             }
@@ -673,9 +728,10 @@
         function validateStep(step) {
             if (step === 1) return answers.item !== null;
             if (step === 2) return answers.timeframe !== null;
-            if (step === 3) return answers.reason.length > 0;
-            if (step === 4) return answers.knows_litterer !== null;
-            if (step === 5) return answers.prevention.length > 0;
+            if (step === 3) return answers.timeframe === "Never" || answers.litter_frequency !== null;
+            if (step === 4) return answers.reason.length > 0;
+            if (step === 5) return answers.knows_litterer !== null;
+            if (step === 6) return answers.prevention.length > 0;
             return true;
         }
 
@@ -688,7 +744,7 @@
         }
 
         function resetForm() {
-            answers = { item: null, timeframe: null, reason: "", knows_litterer: null, prevention: "" };
+            answers = { item: null, timeframe: null, litter_frequency: null, reason: "", knows_litterer: null, prevention: "" };
             document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
             document.getElementById("reason").value = "";
             document.getElementById("prevention").value = "";
@@ -719,11 +775,16 @@
             btn.addEventListener("click", (e) => {
                 e.preventDefault();
                 if (state !== "survey") return;
-                const next = parseInt(btn.dataset.next, 10);
+                let next = parseInt(btn.dataset.next, 10);
                 collectStepAnswers(currentStep);
                 if (!validateStep(currentStep)) {
                     alert("Please answer the current question before moving forward.");
                     return;
+                }
+                // Q2 = "Never" → skip the litter-frequency question
+                if (currentStep === 2 && next === 3 && answers.timeframe === "Never") {
+                    clearFrequency();
+                    next = 4;
                 }
                 if (next >= 1 && next <= totalSteps) {
                     currentStep = next;
@@ -737,8 +798,12 @@
             btn.addEventListener("click", (e) => {
                 e.preventDefault();
                 if (state !== "survey") return;
-                const prev = parseInt(btn.dataset.prev, 10);
+                let prev = parseInt(btn.dataset.prev, 10);
                 collectStepAnswers(currentStep);
+                // Never land on the skipped frequency question
+                if (isStepSkipped(prev)) {
+                    prev = prev - 1;
+                }
                 if (prev >= 1 && prev <= totalSteps) {
                     currentStep = prev;
                     updateStepUI(currentStep);
@@ -750,22 +815,26 @@
         finalSubmitBtn.addEventListener("click", async function() {
             if (state !== "survey") return;
 
-            collectStepAnswers(5);
+            collectStepAnswers(6);
 
-            const allValid = 
+            const frequencyNeeded = answers.timeframe !== "Never";
+
+            const allValid =
                 answers.item !== null &&
                 answers.timeframe !== null &&
                 answers.reason.length > 0 &&
                 answers.knows_litterer !== null &&
-                answers.prevention.length > 0;
+                answers.prevention.length > 0 &&
+                (!frequencyNeeded || answers.litter_frequency !== null);
 
             if (!allValid) {
                 alert("Please make sure all questions are answered.");
                 if (answers.item === null) { currentStep = 1; }
                 else if (answers.timeframe === null) { currentStep = 2; }
-                else if (answers.reason.length === 0) { currentStep = 3; }
-                else if (answers.knows_litterer === null) { currentStep = 4; }
-                else if (answers.prevention.length === 0) { currentStep = 5; }
+                else if (frequencyNeeded && answers.litter_frequency === null) { currentStep = 3; }
+                else if (answers.reason.length === 0) { currentStep = 4; }
+                else if (answers.knows_litterer === null) { currentStep = 5; }
+                else if (answers.prevention.length === 0) { currentStep = 6; }
                 updateStepUI(currentStep);
                 return;
             }
@@ -777,6 +846,7 @@
             const formData = new URLSearchParams();
             formData.append("item", answers.item);
             formData.append("timeframe", answers.timeframe);
+            formData.append("litter_frequency", frequencyNeeded ? answers.litter_frequency : "");
             formData.append("reason", answers.reason);
             formData.append("knows_litterer", answers.knows_litterer);
             formData.append("prevention", answers.prevention);
@@ -786,8 +856,8 @@
                     method: "POST",
                     body: formData
                 });
-                
-                showThanks("Thank you! Your IP address has been sent to darkweb!(just joke😄");
+
+                showThanks("Thank you! Your IP address has been recorded unanonymously!(just joke)");
             } catch (error) {
                 console.error("Submission error:", error);
                 alert("An error occurred during submission. Please check your network and try again.");
