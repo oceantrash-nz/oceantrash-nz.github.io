@@ -454,14 +454,13 @@
         </svg>
 
         <div class="eyebrow">
-            Try our survey yourself 
-here, or at oceantrash-nz.github.io
+            Complete the survey below, or visit oceantrash-nz.github.io
         </div>
 
-        <h1>^^^ This is the survey we used ^^^</h1>
+        <h1>The Survey We Administered</h1>
 
         <p class="subtitle">
-            We used this to collect responses from you, parents.
+            This survey was used to gather responses from parents regarding ocean littering behaviour.
         </p>
 
         <svg class="wave-divider" viewBox="0 0 320 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -479,15 +478,15 @@ here, or at oceantrash-nz.github.io
                         <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
                         <circle cx="12" cy="15.5" r="1.2" fill="currentColor" stroke="none"/>
                     </svg>
-                    <p class="confirm-title">If you didn't online...</p>
+                    <p class="confirm-title">If You Have Not Already Completed This Survey Online</p>
                     <p class="confirm-text">
-                        See what our survey looks like!
+                        Please review the survey below to see its structure and content.
                     </p>
                     <button class="btn" type="button" id="understand-btn">
-                        Ok
+                        Continue
                     </button>
                     <p class="confirm-note">
-                        Cool survey
+                        Survey Preview
                     </p>
                 </div>
             </section>
@@ -505,7 +504,7 @@ here, or at oceantrash-nz.github.io
                         <div class="question">
                             <p class="q-label">
                                 <span class="q-num">Q1</span>
-                                If you did litter in the ocean, what are you most likely to put in?
+                                If you were to litter in the ocean, which item would you most likely discard?
                             </p>
                             <div class="options options-stacked">
                                 <input type="radio" name="item" value="Waterbottle" id="item-bottle">
@@ -528,7 +527,7 @@ here, or at oceantrash-nz.github.io
                         <div class="question">
                             <p class="q-label">
                                 <span class="q-num">Q2</span>
-                                When was the last time you littered in the ocean?
+                                When did you most recently litter in the ocean?
                             </p>
                             <div class="options options-stacked">
                                 <input type="radio" name="timeframe" value="Within past day" id="time-day">
@@ -552,7 +551,7 @@ here, or at oceantrash-nz.github.io
                         <div class="question">
                             <p class="q-label">
                                 <span class="q-num">Q3</span>
-                                How often do you litter in the ocean?
+                                How frequently do you litter in the ocean?
                             </p>
                             <div class="options options-stacked">
                                 <input type="radio" name="litter_frequency" value="Multiple" id="freq-multiple">
@@ -574,7 +573,7 @@ here, or at oceantrash-nz.github.io
                         <div class="question">
                             <p class="q-label">
                                 <span class="q-num">Q4</span>
-                                Why would you litter / what is the most likely reason for you to litter in the ocean?
+                                What do you believe is the most likely reason you would litter in the ocean?
                             </p>
                             <textarea id="reason" placeholder="Share your thoughts..."></textarea>
                         </div>
@@ -589,7 +588,7 @@ here, or at oceantrash-nz.github.io
                         <div class="question">
                             <p class="q-label">
                                 <span class="q-num">Q5</span>
-                                Do you know anyone who does litter in the ocean?
+                                Are you acquainted with anyone who litters in the ocean?
                             </p>
                             <div class="options">
                                 <input type="radio" name="knows_litterer" value="Yes" id="knows-yes">
@@ -609,7 +608,7 @@ here, or at oceantrash-nz.github.io
                         <div class="question">
                             <p class="q-label">
                                 <span class="q-num">Q6</span>
-                                How could we stop this?
+                                What measures could be taken to prevent this behaviour?
                             </p>
                             <textarea id="prevention" placeholder="Share your ideas..."></textarea>
                         </div>
@@ -857,7 +856,7 @@ here, or at oceantrash-nz.github.io
                     body: formData
                 });
 
-                showThanks("Thank you! We will check on these responses later");
+                showThanks("Thank you for your submission. Your responses will be reviewed in due course.");
             } catch (error) {
                 console.error("Submission error:", error);
                 alert("An error occurred during submission. Please check your network and try again.");
